@@ -1,16 +1,15 @@
 import pygame
 
 pygame.init()
-width = 350
-height = 400
-screen = pygame.display.set_mode( (width, height ) )
+
+screen = pygame.display.set_mode( (800, 600) )
 pygame.display.set_caption('clicked on image')
-setaD = pygame.image.load("../../Sprites/Menu/setaDir.png").convert()
-setaE = pygame.image.load("../../Sprites/Menu/setaEsq.png").convert()
+setaD = pygame.image.load("../../Sprites/Menu/setaDirBorda.png").convert()
+setaE = pygame.image.load("../../Sprites/Menu/setaEsqBorda.png").convert()
 x = 20; 
 y = 30; 
 troca = True
-screen.fill((255,255,255))
+screen.fill((0,0,0))
 screen.blit(setaD ,  ( x,y))
 
 running = True
@@ -28,7 +27,7 @@ while (running):
                     print('Clicou na Direita')
                     troca = False
                 elif troca == False:
-                    screen.fill((255,255,255))
+                    screen.fill((0,0,0))
                     screen.blit(setaE ,  ( x,y))
                     print('Clicou na Esquerda')
                     troca = True
