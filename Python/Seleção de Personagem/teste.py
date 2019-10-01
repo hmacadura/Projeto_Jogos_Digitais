@@ -3,10 +3,10 @@ import pygame
 pygame.init()
 screen = pygame.display.set_mode( (800, 600) )
 pygame.display.set_caption('clicked on image')
-setaD = pygame.image.load("../../Sprites/Menu/setaDirBorda.png").convert()
-setaE = pygame.image.load("../../Sprites/Menu/setaEsqBorda.png").convert()
-heroi = pygame.image.load("../../Sprites/Personagens/Herói/Imagens Normais/Heroi1.png").convert()
-cavaleiro = pygame.image.load("../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro1.png").convert()
+setaD = pygame.image.load("../../Sprites/Menu/setaDirBorda.png").convert_alpha()
+setaE = pygame.image.load("../../Sprites/Menu/setaEsqBorda.png").convert_alpha()
+heroi = pygame.image.load("../../Sprites/Personagens/Herói/Imagens Normais/Heroi1.png").convert_alpha()
+cavaleiro = pygame.image.load("../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro1.png").convert_alpha()
 
 xEsq = 0 
 yEsq = 100
