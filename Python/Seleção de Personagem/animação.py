@@ -24,6 +24,10 @@ magoSpritesMenu = []
 for countMenu in range (1,3):
         magoSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Mago/Imagens Normais/Mago" + str(countMenu) + ".png").convert_alpha())
 
+princesaSpritesMenu = []
+for countMenu in range (1,3):
+        princesaSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Princesa/Imagens Normais/Princesa" + str(countMenu) + ".png").convert_alpha())
+
 xEsq = 0 
 yEsq = 100
 posE = (xEsq,yEsq)
@@ -73,7 +77,7 @@ while (running):
 
                                 if troca == 1:
                                         print("troca==1")
-                                        troca = 4
+                                        troca = 5
 
                                 elif troca == 2:
                                         print("troca==2")
@@ -86,6 +90,10 @@ while (running):
                                 elif troca == 4:
                                         print("troca==4")
                                         troca = 3
+
+                                elif troca == 5:
+                                        print("troca==5")
+                                        troca = 4
 
                                 
                         
@@ -106,8 +114,12 @@ while (running):
 
                                 elif troca == 4:
                                         print("troca==4")
+                                        troca = 5
+                                              
+                                elif troca == 5:
+                                        print("troca==5")
                                         troca = 1
-
+                                
                                 
         
         screen.fill(background_color)
@@ -122,7 +134,10 @@ while (running):
                 
         elif troca == 4:
                 screen.blit(magoSpritesMenu[sprite_index],posPersona)
-                
+
+        elif troca == 5:
+                screen.blit(princesaSpritesMenu[sprite_index],posPersona)
+
         screen.blit(setaD ,  posD)
         screen.blit(setaE ,  posE)
 
