@@ -1,17 +1,19 @@
 import pygame
 
 pygame.init()
-screen = pygame.display.set_mode( (800, 600) )
+#screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
+screen = pygame.display.set_mode( (800,600))
+background_color = (56, 32, 14)
 
 setaD = pygame.image.load("../../Sprites/Menu/setaDirBorda.png").convert_alpha()
 setaE = pygame.image.load("../../Sprites/Menu/setaEsqBorda.png").convert_alpha()
 
 heroiSpritesMenu = []
-for countMenu in range (1,2):
+for countMenu in range (1,3):
         heroiSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Herói/Imagens Normais/Heroi" + str(countMenu) + ".png").convert_alpha())
 
 cavaleiroSpritesMenu = []
-for countMenu in range (1,2):
+for countMenu in range (1,3):
         cavaleiroSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro" + str(countMenu) + ".png").convert_alpha())
 
 xEsq = 0 
@@ -33,7 +35,7 @@ posPersona = (xPersona,yPersona)
 
 
 troca = 1
-screen.fill((255,0,0))
+screen.fill(background_color)
 
 clock = pygame.time.Clock()
 
@@ -42,37 +44,56 @@ sprite_index = 0
 screen.blit(setaD ,  (xDir,yDir))
 screen.blit(setaE ,  (xEsq,yEsq))
 screen.blit(heroiSpritesMenu[sprite_index],	 posPersona)
-                                    
+
+print(len(heroiSpritesMenu))
 
 
 running = True
 while (running):
-        clock.tick(600)
+        clock.tick(3)
         for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                                running = False
+                if event.type == pygame.QUIT:
+                        running = False
                         
-        if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                         xMouse, yMouse = event.pos
                         
-                        if setaD.get_rect().collidepoint(xMouse, yMouse):
-                                if troca == 1:
-                                    screen.fill((255,0,0))
-                                    screen.blit(cavaleiroSpritesMenu[sprite_index],posPersona)
-                                    screen.blit(setaD ,  posD)
-                                    screen.blit(setaE ,  posE)
-                                    print('Clicou na Direita')
-                                    troca = 2
-                                        
-                        elif setaE.get_rect().collidepoint(xMouse, yMouse):   
+                        
+                                                
+                        if xMouse >= 0 and xMouse <= widthE and yMouse >=100 and yMouse <= 100 + heightE:
+                                print('Clicou na Esquerda')
+                                
                                 if troca == 2:
-                                    screen.fill((255,0,0))
-                                    screen.blit(heroiSpritesMenu[sprite_index],	 posPersona)
-                                    screen.blit(setaD ,  posD)
-                                    screen.blit(setaE ,  posE)
-                                    print('Clicou na Esquerda')
-                                    troca = 1
+                                        print("troca==2")
+                                        troca = 1
+
+                                elif troca == 1:
+                                        print("troca==1")
+                                        troca = 2
+
+                        
+                        elif xMouse>=600 and xMouse<=800 and yMouse>=100 and yMouse<=100+heightD:
+                                print('Clicou na Direita')
+                                
+                                if troca == 2:
+                                        print("troca==2")
+                                        troca = 1
+
+                                elif troca == 1:
+                                        print("troca==1")
+                                        troca = 2
+        
+        screen.fill(background_color)
+        if troca==2:
+                screen.blit(cavaleiroSpritesMenu[sprite_index],posPersona)
+        else:
+                screen.blit(heroiSpritesMenu[sprite_index], posPersona) 
+        screen.blit(setaD ,  posD)
+        screen.blit(setaE ,  posE)
+
+        sprite_index = (sprite_index + 1) % 2
+                                
                                         
         pygame.display.update()
-        sprite_index = (sprite_index + 1)  % 8
+        
 pygame.quit()
