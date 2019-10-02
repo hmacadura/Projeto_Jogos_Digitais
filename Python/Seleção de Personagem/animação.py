@@ -16,6 +16,14 @@ cavaleiroSpritesMenu = []
 for countMenu in range (1,3):
         cavaleiroSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro" + str(countMenu) + ".png").convert_alpha())
 
+brutoSpritesMenu = []
+for countMenu in range (1,3):
+        brutoSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Bruto/Imagens Normais/Bruto" + str(countMenu) + ".png").convert_alpha())
+
+magoSpritesMenu = []
+for countMenu in range (1,3):
+        magoSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Mago/Imagens Normais/Mago" + str(countMenu) + ".png").convert_alpha())
+
 xEsq = 0 
 yEsq = 100
 posE = (xEsq,yEsq)
@@ -62,32 +70,59 @@ while (running):
                                                 
                         if xMouse >= 0 and xMouse <= widthE and yMouse >=100 and yMouse <= 100 + heightE:
                                 print('Clicou na Esquerda')
-                                
-                                if troca == 2:
+
+                                if troca == 1:
+                                        print("troca==1")
+                                        troca = 4
+
+                                elif troca == 2:
                                         print("troca==2")
                                         troca = 1
 
-                                elif troca == 1:
-                                        print("troca==1")
+                                elif troca == 3:
+                                        print("troca==3")
                                         troca = 2
 
+                                elif troca == 4:
+                                        print("troca==4")
+                                        troca = 3
+
+                                
                         
                         elif xMouse>=600 and xMouse<=800 and yMouse>=100 and yMouse<=100+heightD:
                                 print('Clicou na Direita')
-                                
-                                if troca == 2:
-                                        print("troca==2")
-                                        troca = 1
 
-                                elif troca == 1:
+                                if troca == 1:
                                         print("troca==1")
                                         troca = 2
+                                        
+                                elif troca == 2:
+                                        print("troca==2")
+                                        troca = 3
+                                        
+                                elif troca == 3:
+                                        print("troca==3")
+                                        troca = 4
+
+                                elif troca == 4:
+                                        print("troca==4")
+                                        troca = 1
+
+                                
         
         screen.fill(background_color)
-        if troca==2:
+        if troca == 1:
+                screen.blit(heroiSpritesMenu[sprite_index], posPersona)
+                
+        elif troca == 2:
                 screen.blit(cavaleiroSpritesMenu[sprite_index],posPersona)
-        else:
-                screen.blit(heroiSpritesMenu[sprite_index], posPersona) 
+        
+        elif troca == 3:
+                screen.blit(brutoSpritesMenu[sprite_index],posPersona)
+                
+        elif troca == 4:
+                screen.blit(magoSpritesMenu[sprite_index],posPersona)
+                
         screen.blit(setaD ,  posD)
         screen.blit(setaE ,  posE)
 
