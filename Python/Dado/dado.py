@@ -8,6 +8,9 @@ pygame.init()
 screen = pygame.display.set_mode( (800,600))
 background_color = (255, 255, 255)
 
+fundoDado = pygame.image.load("../../Sprites/Fundo/marmore.png").convert()
+
+
 botaoDado = pygame.image.load("../../Sprites/Menu/botaoDado.png").convert_alpha()
 
 pygame.mixer.init()
@@ -36,6 +39,7 @@ screen.fill(background_color)
 clock = pygame.time.Clock()
 
 sprite_index = 0
+
 
 screen.blit(botaoDado ,posBotaoDado)
 print(numeroDado)
@@ -87,21 +91,27 @@ while (running):
         
         screen.fill(background_color)
         if numeroDado == 1:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[0], posDado)
                 
         elif numeroDado == 2:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[1],posDado)
         
         elif numeroDado == 3:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[2],posDado)
                 
         elif numeroDado == 4:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[3],posDado)
 
         elif numeroDado == 5:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[4],posDado)
                 
         elif numeroDado == 6:
+                screen.blit(fundoDado ,(0,0))
                 screen.blit(dadoSprites[5],posDado)
         
 

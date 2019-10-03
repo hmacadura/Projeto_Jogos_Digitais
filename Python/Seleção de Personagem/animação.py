@@ -1,11 +1,18 @@
 import pygame
 
 pygame.init()
+pygame.mixer.init()
+telaSom = pygame.mixer.Sound("../../Sounds/temaZelda.wav")
+
 #screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
 screen = pygame.display.set_mode( (800,600))
 background_color = (56, 32, 14)
 
+fundoGrama = pygame.image.load("../../Sprites/Fundo/gramaClaro.png").convert_alpha()
+
+
 setaD = pygame.image.load("../../Sprites/Menu/setaDirBorda.png").convert_alpha()
+
 setaE = pygame.image.load("../../Sprites/Menu/setaEsqBorda.png").convert_alpha()
 
 heroiSpritesMenu = []
@@ -58,7 +65,7 @@ screen.blit(setaE ,  (xEsq,yEsq))
 screen.blit(heroiSpritesMenu[sprite_index],	 posPersona)
 
 print(len(heroiSpritesMenu))
-
+telaSom.play(-1)
 
 running = True
 while (running):
@@ -124,18 +131,23 @@ while (running):
         
         screen.fill(background_color)
         if troca == 1:
+                screen.blit(fundoGrama,(0,-250))
                 screen.blit(heroiSpritesMenu[sprite_index], posPersona)
                 
         elif troca == 2:
+                screen.blit(fundoGrama,(0,-250))
                 screen.blit(cavaleiroSpritesMenu[sprite_index],posPersona)
         
         elif troca == 3:
+                screen.blit(fundoGrama,(0,-250))
                 screen.blit(brutoSpritesMenu[sprite_index],posPersona)
                 
         elif troca == 4:
+                screen.blit(fundoGrama,(0,-250))
                 screen.blit(magoSpritesMenu[sprite_index],posPersona)
 
         elif troca == 5:
+                screen.blit(fundoGrama,(0,-250))
                 screen.blit(princesaSpritesMenu[sprite_index],posPersona)
 
         screen.blit(setaD ,  posD)
