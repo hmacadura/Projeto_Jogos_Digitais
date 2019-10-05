@@ -23,9 +23,9 @@ cavaleiroSpritesMenu = []
 for countMenu in range (1,3):
         cavaleiroSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro" + str(countMenu) + ".png").convert_alpha())
 
-brutoSpritesMenu = []
+feiticeiraSpritesMenu = []
 for countMenu in range (1,3):
-        brutoSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Bruto/Imagens Normais/Bruto" + str(countMenu) + ".png").convert_alpha())
+        feiticeiraSpritesMenu.append(pygame.image.load("../../Sprites/Personagens/Feiticeira/Imagens Normais/Feiticeira" + str(countMenu) + ".png").convert_alpha())
 
 magoSpritesMenu = []
 for countMenu in range (1,3):
@@ -140,7 +140,7 @@ while (running):
         
         elif troca == 3:
                 screen.blit(fundoGrama,(0,-250))
-                screen.blit(brutoSpritesMenu[sprite_index],posPersona)
+                screen.blit(feiticeiraSpritesMenu[sprite_index],posPersona)
                 
         elif troca == 4:
                 screen.blit(fundoGrama,(0,-250))
