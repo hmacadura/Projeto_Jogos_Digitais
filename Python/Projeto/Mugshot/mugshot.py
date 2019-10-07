@@ -4,7 +4,6 @@ sys.path.insert(1, '..\Selecao')
 import selecaoEmFuncao
 pygame.init()
 pygame.mixer.init()
-#screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
 
 #Tamanho da Tela
 widthScreen = 800
@@ -34,10 +33,14 @@ princesaSpritesMugshot = []
 for countMenu in range (1,3):
         princesaSpritesMugshot.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Mugshot/Princesa" + str(countMenu) + ".png").convert_alpha())
 
-
 #Chama função de escolher personagem
 opcaoPersonagem = selecaoEmFuncao.seleciona.selecaoPersonagem()
 
+pygame.init()
+pygame.mixer.init()
+#screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
+
+screen = pygame.display.set_mode( (widthScreen,heighScreen))
 
 #Variavel que Percorrerá o Array dos Personagens
 sprite_index = 0
@@ -47,7 +50,7 @@ xPersonagemMugshot = 0
 yPersonagemMugshot = 300
 posPersonagemMugshot = (xPersonagemMugshot,yPersonagemMugshot)
 
-screen.fill(background_color)
+#screen.fill(background_color)
 clock = pygame.time.Clock()
 
 running = True
@@ -60,24 +63,24 @@ while (running):
     #Compara a variavel troca para saber qual a escolha do usuario
     if opcaoPersonagem == 1:
         print("HERÓI")
-        screen.blit(heroiSpritesMugshot[sprite_index], posPersonagem)
+        screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
         
     elif opcaoPersonagem == 2:
         print("Cavaleiro")
-        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagem)
+        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
 
     elif opcaoPersonagem == 3:
         print("Feiticeira")
-        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagem)
+        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
 
     elif opcaoPersonagem == 4:
         print("Mago")
-        screen.blit(magoSpritesMugshot[sprite_index],posPersonagem)
+        screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
 
 
     elif opcaoPersonagem == 5:
         print("Princesa")
-        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagem)
+        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
 
 
     sprite_index = (sprite_index + 1) % 2
