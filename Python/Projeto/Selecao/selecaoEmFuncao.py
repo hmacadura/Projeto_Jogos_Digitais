@@ -229,4 +229,3 @@ class seleciona:
                 pygame.quit()
                 print(troca)
                 return troca
-seleciona.selecaoPersonagem()
