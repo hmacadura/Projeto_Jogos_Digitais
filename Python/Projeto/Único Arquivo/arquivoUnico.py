@@ -1,9 +1,17 @@
 import pygame
 import sys
-
 pygame.init()
 pygame.mixer.init()
-#screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
+
+#Tamanho da Tela
+widthScreen = 800
+heightScreen = 600
+
+#-------------TELA CHEIA-------------
+#screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
+
+#-------------JANELA NORMAL-------------
+screen = pygame.display.set_mode( (widthScreen,heightScreen))
 
 #-------------Definindo Cores-------------
 black = (0,0,0)
@@ -12,14 +20,10 @@ red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
 
-#Tamanho da Tela
-widthScreen = 800
-heighScreen = 600 
-
 #Variavel que Percorrerá o Array das Sprites
 sprite_index = 0
 
-screen = pygame.display.set_mode( (widthScreen,heighScreen))
+
 
 #-------------Carregando imagens e sons Para Seleção de Personagens-------------
 
@@ -117,6 +121,9 @@ heightBotaoSelecionar = botaoSelecionar.get_height()
 widthFundoPersonagem = fundoPersonagem.get_width()
 heightFundoPersonagem = fundoPersonagem.get_height()
 
+#Personagem Mugshot
+widthPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
+heightPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
 #-------------Definindo Posições-------------
 
 #Fundo
@@ -125,50 +132,50 @@ yFundo = -100
 posFundo = (xFundo,yFundo)
 
 #Seta Esquerda
-xEsq = 0 
-yEsq = 100
+xEsq = widthScreen/4 - widthE
+yEsq = heightScreen/4 - heightE/4 
 posE = (xEsq,yEsq)
 
 #Seta Direita
-xDir = 600 
-yDir = 100 
+xDir = widthScreen/2 + widthD 
+yDir = heightScreen/4 - heightD/4 
 posD = (xDir,yDir)
 
 
 #Botão Selecionar
 xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
-yBotaoSelecionar = heighScreen - heightBotaoSelecionar
+yBotaoSelecionar = heightScreen - heightBotaoSelecionar
 posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 
 
 #Fundo Personagem 
 xFundoPersonagem = widthScreen/2 - widthFundoPersonagem/2
-yFundoPersonagem = heighScreen/4 - heightFundoPersonagem/4
+yFundoPersonagem = heightScreen/4 - heightFundoPersonagem/4
 posFundoPersonagem = (xFundoPersonagem,yFundoPersonagem)
 
 #Herói
 xHeroi = widthScreen/2 - widthHeroi/2
-yHeroi = heighScreen/3 - widthHeroi/2
+yHeroi = heightScreen/3 - widthHeroi/2
 posHeroi = (xHeroi,yHeroi)
 
 #Cavaleiro  
 xCavaleiro = widthScreen/2 - widthCavaleiro/2.1
-yCavaleiro = heighScreen/3 - widthCavaleiro/2
+yCavaleiro = heightScreen/3 - widthCavaleiro/2
 posCavaleiro = (xCavaleiro,yCavaleiro)
 
 #Feiticeira  
 xFeiticeira = widthScreen/2 - widthFeiticeira/2
-yFeiticeira = heighScreen/3 - widthFeiticeira/2
+yFeiticeira = heightScreen/3 - widthFeiticeira/2
 posFeiticeira = (xFeiticeira,yFeiticeira)
 
 #Mago  
 xMago = widthScreen/2 - widthMago/2
-yMago = heighScreen/3 - widthMago/2
+yMago = heightScreen/3 - widthMago/2
 posMago = (xMago,yMago)
 
 #Princesa  
 xPrincesa = widthScreen/2 - widthPrincesa/2
-yPrincesa = heighScreen/3 - widthPrincesa/2
+yPrincesa = heightScreen/3 - widthPrincesa/2
 posPrincesa = (xPrincesa,yPrincesa)
 
 #Personagem Geral Mugshot
@@ -182,6 +189,14 @@ clock = pygame.time.Clock()
 
 #Variavel que definirá qual personagem o usuário escolheu
 troca = 1
+
+#Tamanho do Texto
+font = pygame.font.Font('freesansbold.ttf', 32)
+
+#-------------Função que escreve na tela-------------
+def mensagemTela(mensagem,cor):
+        texto = font.render(mensagem, True, cor)
+        screen.blit(texto, [widthPersonagemMugshot + 20 , 10])
 
 #Loop da música
 telaSom.play(-1)
@@ -317,10 +332,7 @@ while (verHistoria):
         if troca == 1:
                 print("HERÓI")
                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-                font = pygame.font.Font('freesansbold.ttf', 32) 
-                pygame.display.set_caption('Show Text')
-                text = font.render('GeeksForGeeks', True, black,(255,255,255)) 
-
+                mensagemTela("TESTANDO", blue)
 
         elif troca == 2:
                 print("Cavaleiro")      
