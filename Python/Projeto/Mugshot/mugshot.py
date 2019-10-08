@@ -37,6 +37,7 @@ for countMenu in range (1,3):
 opcaoPersonagem = selecaoEmFuncao.seleciona.selecaoPersonagem()
 
 pygame.init()
+pygame.font.init()
 pygame.mixer.init()
 #screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
 
@@ -46,8 +47,8 @@ screen = pygame.display.set_mode( (widthScreen,heighScreen))
 sprite_index = 0
 
 #Personagem Geral
-xPersonagemMugshot = 0
-yPersonagemMugshot = 300
+xPersonagemMugshot = 10
+yPersonagemMugshot = 10
 posPersonagemMugshot = (xPersonagemMugshot,yPersonagemMugshot)
 
 #screen.fill(background_color)
@@ -64,7 +65,11 @@ while (running):
     if opcaoPersonagem == 1:
         print("HERÓI")
         screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-        
+        font = pygame.font.Font('freesansbold.ttf', 32) 
+        pygame.display.set_caption('Show Text')
+        text = font.render('GeeksForGeeks', True, background_color,(255,255,255)) 
+
+
     elif opcaoPersonagem == 2:
         print("Cavaleiro")
         screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
