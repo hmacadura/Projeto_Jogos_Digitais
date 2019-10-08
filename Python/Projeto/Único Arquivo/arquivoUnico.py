@@ -5,20 +5,23 @@ pygame.init()
 pygame.mixer.init()
 #screen = pygame.display.set_mode( (0,0),pygame.FULLSCREEN )
 
-#Definindo Cores
+#-------------Definindo Cores-------------
 black = (0,0,0)
 white = (255,255,255)
 red = (255,0,0)
 green = (0,255,0)
 blue = (0,0,255)
+
 #Tamanho da Tela
 widthScreen = 800
 heighScreen = 600 
 
-screen = pygame.display.set_mode( (widthScreen,heighScreen))
-background_color = (56, 32, 14)
+#Variavel que Percorrerá o Array das Sprites
+sprite_index = 0
 
-#Carregando imagens e sons Para Seleção de Personagens
+screen = pygame.display.set_mode( (widthScreen,heighScreen))
+
+#-------------Carregando imagens e sons Para Seleção de Personagens-------------
 
 telaSom = pygame.mixer.Sound("../../../Sounds/temaZelda.wav")
 
@@ -56,7 +59,7 @@ princesaSpritesMenu = []
 for countMenu in range (1,3):
         princesaSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Imagens Normais/Princesa" + str(countMenu) + ".png").convert_alpha())
 
-#Carregando imagens e sons Para Mugshots
+#-------------Carregando imagens e sons Para Mugshots-------------
 heroiSpritesMugshot = []
 for countMenu in range (1,3):
         heroiSpritesMugshot.append(pygame.image.load("../../../Sprites/Personagens/Herói/Mugshot/Heroi" + str(countMenu) + ".png").convert_alpha())
@@ -77,47 +80,7 @@ princesaSpritesMugshot = []
 for countMenu in range (1,3):
         princesaSpritesMugshot.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Mugshot/Princesa" + str(countMenu) + ".png").convert_alpha())
 
-#Definindo Posições
-
-#Fundo
-xFundo = 0
-yFundo = -100
-posFundo = (xFundo,yFundo)
-
-#Seta Esquerda
-xEsq = 0 
-yEsq = 100
-posE = (xEsq,yEsq)
-widthE = setaE.get_width()
-heightE = setaE.get_height()
-
-#Seta Direita
-xDir = 600 
-yDir = 100 
-posD = (xDir,yDir)
-widthD = setaD.get_width()
-heightD = setaD.get_height()
-
-#Botão Selecionar
-xBotaoSelecionar = 240
-yBotaoSelecionar = 350
-posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
-widthBotaoSelecionar = botaoSelecionar.get_width()
-heightBotaoSelecionar = botaoSelecionar.get_height()
-
-#Fundo Personagem 
-xFundoPersonagem = 234
-yFundoPersonagem = 60
-posFundoPersonagem = (xFundoPersonagem,yFundoPersonagem)
-
-#Personagem Geral
-xPersonagem = 315
-yPersonagem = 100
-posPersonagem = (xPersonagem,yPersonagem)
-
-#Variavel que Percorrerá o Array dos Personagens
-sprite_index = 0
-
+#-------------Largura e Altura das Sprites------------- 
 #Heroi
 widthHeroi = heroiSpritesMenu[sprite_index].get_width()
 heightHeroi = heroiSpritesMenu[sprite_index].get_height()
@@ -138,16 +101,87 @@ heightMago = magoSpritesMenu[sprite_index].get_height()
 widthPrincesa = princesaSpritesMenu[sprite_index].get_width()
 heightPrincesa = princesaSpritesMenu[sprite_index].get_height()
 
-#Variavel que definirá qual personagem o usuário escolheu
-troca = 1
+#Seta Esquerda
+widthE = setaE.get_width()
+heightE = setaE.get_height()
+
+#Seta Direita
+widthD = setaD.get_width()
+heightD = setaD.get_height()
+
+#Botão Selecionar
+widthBotaoSelecionar = botaoSelecionar.get_width()
+heightBotaoSelecionar = botaoSelecionar.get_height()
+
+#Fundo Personagem 
+widthFundoPersonagem = fundoPersonagem.get_width()
+heightFundoPersonagem = fundoPersonagem.get_height()
+
+#-------------Definindo Posições-------------
+
+#Fundo
+xFundo = 0
+yFundo = -100
+posFundo = (xFundo,yFundo)
+
+#Seta Esquerda
+xEsq = 0 
+yEsq = 100
+posE = (xEsq,yEsq)
+
+#Seta Direita
+xDir = 600 
+yDir = 100 
+posD = (xDir,yDir)
+
+
+#Botão Selecionar
+xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
+yBotaoSelecionar = heighScreen - heightBotaoSelecionar
+posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
+
+
+#Fundo Personagem 
+xFundoPersonagem = widthScreen/2 - widthFundoPersonagem/2
+yFundoPersonagem = heighScreen/4 - heightFundoPersonagem/4
+posFundoPersonagem = (xFundoPersonagem,yFundoPersonagem)
+
+#Herói
+xHeroi = widthScreen/2 - widthHeroi/2
+yHeroi = heighScreen/3 - widthHeroi/2
+posHeroi = (xHeroi,yHeroi)
+
+#Cavaleiro  
+xCavaleiro = widthScreen/2 - widthCavaleiro/2.1
+yCavaleiro = heighScreen/3 - widthCavaleiro/2
+posCavaleiro = (xCavaleiro,yCavaleiro)
+
+#Feiticeira  
+xFeiticeira = widthScreen/2 - widthFeiticeira/2
+yFeiticeira = heighScreen/3 - widthFeiticeira/2
+posFeiticeira = (xFeiticeira,yFeiticeira)
+
+#Mago  
+xMago = widthScreen/2 - widthMago/2
+yMago = heighScreen/3 - widthMago/2
+posMago = (xMago,yMago)
+
+#Princesa  
+xPrincesa = widthScreen/2 - widthPrincesa/2
+yPrincesa = heighScreen/3 - widthPrincesa/2
+posPrincesa = (xPrincesa,yPrincesa)
 
 #Personagem Geral Mugshot
 xPersonagemMugshot = 10
 yPersonagemMugshot = 10
 posPersonagemMugshot = (xPersonagemMugshot,yPersonagemMugshot)
 
-screen.fill(background_color)
+screen.fill(blue)
+
 clock = pygame.time.Clock()
+
+#Variavel que definirá qual personagem o usuário escolheu
+troca = 1
 
 #Loop da música
 telaSom.play(-1)
@@ -161,7 +195,7 @@ selecionar = True
 #Variavel para parar o programa Seleção de Personagens
 verHistoria = True
 
-#SELECIONA PERSONAGEM
+#-------------SELECIONA PERSONAGEM-------------
 while (selecionar):
         clock.tick(3)
         for event in pygame.event.get():
@@ -231,31 +265,32 @@ while (selecionar):
                                 selecionar = False
                                 running = False
                        
-        screen.fill(background_color)
+        screen.fill(blue)
         if troca == 1:
                 screen.blit(fundoGrama, posFundo)
                 screen.blit(fundoPersonagem, posFundoPersonagem)
-                screen.blit(heroiSpritesMenu[sprite_index], posPersonagem)
+                screen.blit(heroiSpritesMenu[sprite_index], posHeroi)
                 
         elif troca == 2:
+                
                 screen.blit(fundoGrama, posFundo)
                 screen.blit(fundoPersonagem, posFundoPersonagem)
-                screen.blit(cavaleiroSpritesMenu[sprite_index],posPersonagem)
+                screen.blit(cavaleiroSpritesMenu[sprite_index],posCavaleiro)
         
         elif troca == 3:
                 screen.blit(fundoGrama, posFundo)
                 screen.blit(fundoPersonagem, posFundoPersonagem)
-                screen.blit(feiticeiraSpritesMenu[sprite_index],posPersonagem)
+                screen.blit(feiticeiraSpritesMenu[sprite_index],posFeiticeira)
                 
         elif troca == 4:
                 screen.blit(fundoGrama, posFundo)
                 screen.blit(fundoPersonagem, posFundoPersonagem)
-                screen.blit(magoSpritesMenu[sprite_index],posPersonagem)
+                screen.blit(magoSpritesMenu[sprite_index],posMago)
 
         elif troca == 5:
                 screen.blit(fundoGrama, posFundo)
                 screen.blit(fundoPersonagem, posFundoPersonagem)
-                screen.blit(princesaSpritesMenu[sprite_index],posPersonagem)
+                screen.blit(princesaSpritesMenu[sprite_index],posPrincesa)
 
         screen.blit(setaD ,  posD)
         screen.blit(setaE ,  posE)
@@ -269,7 +304,7 @@ while (selecionar):
 print(troca)
 
 screen.fill(black)
-
+#-------------Mugshot-------------
 while (verHistoria):
         clock.tick(3)
         for event in pygame.event.get():
@@ -284,7 +319,7 @@ while (verHistoria):
                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
                 font = pygame.font.Font('freesansbold.ttf', 32) 
                 pygame.display.set_caption('Show Text')
-                text = font.render('GeeksForGeeks', True, background_color,(255,255,255)) 
+                text = font.render('GeeksForGeeks', True, black,(255,255,255)) 
 
 
         elif troca == 2:
@@ -308,7 +343,7 @@ while (verHistoria):
         sprite_index = (sprite_index + 1) % 2
         pygame.display.update()
          
-#PARA O PROGRAMA
+#-------------PARA O PROGRAMA-------------
 while (running):
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
