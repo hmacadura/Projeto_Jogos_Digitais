@@ -165,6 +165,10 @@ verHistoria = True
 while (selecionar):
         clock.tick(3)
         for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        running = False
+                        pygame.quit()
+                        sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         xMouse, yMouse = event.pos
                 
@@ -267,42 +271,47 @@ print(troca)
 screen.fill(black)
 
 while (verHistoria):
-    clock.tick(3)
-    for event in pygame.event.get():
-    #Compara a variavel troca para saber qual a escolha do usuario
-            if troca == 1:
+        clock.tick(3)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        running = False
+                        pygame.quit()
+                        sys.exit()
+
+        #Compara a variavel troca para saber qual a escolha do usuario
+        if troca == 1:
                 print("HERÓI")
-                screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)    
+                screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
                 font = pygame.font.Font('freesansbold.ttf', 32) 
                 pygame.display.set_caption('Show Text')
                 text = font.render('GeeksForGeeks', True, background_color,(255,255,255)) 
 
 
-            elif troca == 2:
-                print("Cavaleiro")
+        elif troca == 2:
+                print("Cavaleiro")      
                 screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
 
-            elif troca == 3:
+        elif troca == 3:
                 print("Feiticeira")
                 screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
 
-            elif troca == 4:
+        elif troca == 4:
                 print("Mago")
                 screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
 
 
-            elif troca == 5:
+        elif troca == 5:
                 print("Princesa")
                 screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
 
 
-    sprite_index = (sprite_index + 1) % 2
-    pygame.display.update()
-    
+        sprite_index = (sprite_index + 1) % 2
+        pygame.display.update()
+         
 #PARA O PROGRAMA
 while (running):
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         running = False
-        pygame.display.quit()
-pygame.quit()
+                        pygame.quit()
+                        sys.exit()
