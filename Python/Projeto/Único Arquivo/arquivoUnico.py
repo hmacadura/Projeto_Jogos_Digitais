@@ -4,8 +4,8 @@ pygame.init()
 pygame.mixer.init()
 
 #Tamanho da Tela
-widthScreen = 800
-heightScreen = 600
+widthScreen = 1280
+heightScreen = 720
 
 #-------------TELA CHEIA-------------
 #screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
@@ -23,8 +23,6 @@ blue = (0,0,255)
 #Variavel que Percorrerá o Array das Sprites
 sprite_index = 0
 
-
-
 #-------------Carregando imagens e sons Para Seleção de Personagens-------------
 
 telaSom = pygame.mixer.Sound("../../../Sounds/temaZelda.wav")
@@ -33,13 +31,15 @@ setaSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoTroca.wav")
 
 selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
 
-fundoGrama = pygame.image.load("../../../Sprites/Fundo/gramaClaro.png").convert_alpha()
+fundoSalao = pygame.image.load("../../../Sprites/Fundo/fundoSalao.png").convert_alpha()
 
 setaD = pygame.image.load("../../../Sprites/Menu/setaDirBorda.png").convert_alpha()
 
 setaE = pygame.image.load("../../../Sprites/Menu/setaEsqBorda.png").convert_alpha()
 
 botaoSelecionar = pygame.image.load("../../../Sprites/Menu/botaoSelect.png").convert_alpha()
+
+botaoHeroi = pygame.image.load("../../../Sprites/Menu/botaoHeroi.png").convert_alpha()
 
 fundoPersonagem = pygame.image.load("../../../Sprites/Menu/fundoSelecao.png").convert_alpha()
 
@@ -113,6 +113,22 @@ heightE = setaE.get_height()
 widthD = setaD.get_width()
 heightD = setaD.get_height()
 
+#Botão Heroi
+widthBotaoHeroi = botaoHeroi.get_width()
+heightBotaoHeroi = botaoHeroi.get_height()
+
+#Botão Cavaleiro
+
+
+#Botão Feiticeira
+
+
+#Botão Mago
+
+
+#Botão Princesa
+
+
 #Botão Selecionar
 widthBotaoSelecionar = botaoSelecionar.get_width()
 heightBotaoSelecionar = botaoSelecionar.get_height()
@@ -128,55 +144,68 @@ heightPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
 
 #Fundo
 xFundo = 0
-yFundo = -100
+yFundo = 0
 posFundo = (xFundo,yFundo)
 
 #Seta Esquerda
-xEsq = widthScreen/4 - widthE
-yEsq = heightScreen/4 - heightE/4 
+xEsq = 0
+yEsq = heightScreen/2 - heightE/2
 posE = (xEsq,yEsq)
 
 #Seta Direita
-xDir = widthScreen/2 + widthD 
-yDir = heightScreen/4 - heightD/4 
+xDir = widthScreen - widthD
+yDir = heightScreen/2 - heightD/2 
 posD = (xDir,yDir)
 
 
 #Botão Selecionar
 xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
-yBotaoSelecionar = heightScreen - heightBotaoSelecionar
+yBotaoSelecionar = heightScreen/2 - heightBotaoSelecionar*1.5
 posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 
 
 #Fundo Personagem 
 xFundoPersonagem = widthScreen/2 - widthFundoPersonagem/2
-yFundoPersonagem = heightScreen/4 - heightFundoPersonagem/4
+yFundoPersonagem = heightScreen/2 - heightFundoPersonagem/2 
 posFundoPersonagem = (xFundoPersonagem,yFundoPersonagem)
 
 #Herói
 xHeroi = widthScreen/2 - widthHeroi/2
-yHeroi = heightScreen/3 - widthHeroi/2
+yHeroi = heightScreen/2 - widthHeroi/2
 posHeroi = (xHeroi,yHeroi)
+
+#Botão Heroi
+xBotaoHeroi = widthScreen/2 - widthBotaoHeroi/2
+yBotaoHeroi = heightScreen - heightBotaoHeroi/1.3
+posBotaoHeroi = (xBotaoHeroi,yBotaoHeroi)
 
 #Cavaleiro  
 xCavaleiro = widthScreen/2 - widthCavaleiro/2.1
 yCavaleiro = heightScreen/3 - widthCavaleiro/2
 posCavaleiro = (xCavaleiro,yCavaleiro)
 
+#Botão Cavaleiro
+
 #Feiticeira  
 xFeiticeira = widthScreen/2 - widthFeiticeira/2
 yFeiticeira = heightScreen/3 - widthFeiticeira/2
 posFeiticeira = (xFeiticeira,yFeiticeira)
+
+#Botão Feiticeira
 
 #Mago  
 xMago = widthScreen/2 - widthMago/2
 yMago = heightScreen/3 - widthMago/2
 posMago = (xMago,yMago)
 
+#Botão Mago
+
 #Princesa  
 xPrincesa = widthScreen/2 - widthPrincesa/2
 yPrincesa = heightScreen/3 - widthPrincesa/2
 posPrincesa = (xPrincesa,yPrincesa)
+
+#Botão Princesa
 
 #Personagem Geral Mugshot
 xPersonagemMugshot = 10
@@ -282,29 +311,30 @@ while (selecionar):
                        
         screen.fill(blue)
         if troca == 1:
-                screen.blit(fundoGrama, posFundo)
-                screen.blit(fundoPersonagem, posFundoPersonagem)
+                screen.blit(fundoSalao, posFundo)
+                screen.blit(botaoHeroi, posBotaoHeroi)
+                #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(heroiSpritesMenu[sprite_index], posHeroi)
                 
         elif troca == 2:
                 
-                screen.blit(fundoGrama, posFundo)
-                screen.blit(fundoPersonagem, posFundoPersonagem)
+                screen.blit(fundoSalao, posFundo)
+                #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(cavaleiroSpritesMenu[sprite_index],posCavaleiro)
         
         elif troca == 3:
-                screen.blit(fundoGrama, posFundo)
-                screen.blit(fundoPersonagem, posFundoPersonagem)
+                screen.blit(fundoSalao, posFundo)
+                #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(feiticeiraSpritesMenu[sprite_index],posFeiticeira)
                 
         elif troca == 4:
-                screen.blit(fundoGrama, posFundo)
-                screen.blit(fundoPersonagem, posFundoPersonagem)
+                screen.blit(fundoSalao, posFundo)
+                #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(magoSpritesMenu[sprite_index],posMago)
 
         elif troca == 5:
-                screen.blit(fundoGrama, posFundo)
-                screen.blit(fundoPersonagem, posFundoPersonagem)
+                screen.blit(fundoSalao, posFundo)
+                #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(princesaSpritesMenu[sprite_index],posPrincesa)
 
         screen.blit(setaD ,  posD)
