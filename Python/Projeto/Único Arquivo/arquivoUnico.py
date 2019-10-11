@@ -8,10 +8,10 @@ widthScreen = 1280
 heightScreen = 720
 
 #-------------TELA CHEIA-------------
-#screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
+screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
 
 #-------------JANELA NORMAL-------------
-screen = pygame.display.set_mode( (widthScreen,heightScreen))
+#screen = pygame.display.set_mode( (widthScreen,heightScreen))
 
 #-------------Definindo Cores-------------
 black = (0,0,0)
@@ -40,6 +40,14 @@ setaE = pygame.image.load("../../../Sprites/Menu/setaEsqBorda.png").convert_alph
 botaoSelecionar = pygame.image.load("../../../Sprites/Menu/botaoSelect.png").convert_alpha()
 
 botaoHeroi = pygame.image.load("../../../Sprites/Menu/botaoHeroi.png").convert_alpha()
+
+botaoCavaleiro = pygame.image.load("../../../Sprites/Menu/botaoCavaleiro.png").convert_alpha()
+
+botaoFeiticeira = pygame.image.load("../../../Sprites/Menu/botaoFeiticeira.png").convert_alpha()
+
+botaoMago = pygame.image.load("../../../Sprites/Menu/botaoMago.png").convert_alpha()
+
+botaoPrincesa = pygame.image.load("../../../Sprites/Menu/botaoPrincesa.png").convert_alpha()
 
 fundoPersonagem = pygame.image.load("../../../Sprites/Menu/fundoSelecao.png").convert_alpha()
 
@@ -114,20 +122,8 @@ widthD = setaD.get_width()
 heightD = setaD.get_height()
 
 #Botão Heroi
-widthBotaoHeroi = botaoHeroi.get_width()
-heightBotaoHeroi = botaoHeroi.get_height()
-
-#Botão Cavaleiro
-
-
-#Botão Feiticeira
-
-
-#Botão Mago
-
-
-#Botão Princesa
-
+widthBotaoPersonagem = botaoHeroi.get_width()
+heightBotaoPersonagem = botaoHeroi.get_height()
 
 #Botão Selecionar
 widthBotaoSelecionar = botaoSelecionar.get_width()
@@ -163,7 +159,6 @@ xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
 yBotaoSelecionar = heightScreen/2 - heightBotaoSelecionar*1.5
 posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 
-
 #Fundo Personagem 
 xFundoPersonagem = widthScreen/2 - widthFundoPersonagem/2
 yFundoPersonagem = heightScreen/2 - heightFundoPersonagem/2 
@@ -171,41 +166,33 @@ posFundoPersonagem = (xFundoPersonagem,yFundoPersonagem)
 
 #Herói
 xHeroi = widthScreen/2 - widthHeroi/2
-yHeroi = heightScreen/2 - widthHeroi/2
+yHeroi = heightScreen/2 - widthHeroi/1.5
 posHeroi = (xHeroi,yHeroi)
 
-#Botão Heroi
-xBotaoHeroi = widthScreen/2 - widthBotaoHeroi/2
-yBotaoHeroi = heightScreen - heightBotaoHeroi/1.3
-posBotaoHeroi = (xBotaoHeroi,yBotaoHeroi)
+#Descrição Personagem
+xBotaoPersonagem = widthScreen/2 - widthBotaoPersonagem/2
+yBotaoPersonagem = heightScreen - heightBotaoPersonagem/1.3
+posBotaoPersonagem = (xBotaoPersonagem,yBotaoPersonagem)
 
 #Cavaleiro  
-xCavaleiro = widthScreen/2 - widthCavaleiro/2.1
-yCavaleiro = heightScreen/3 - widthCavaleiro/2
+xCavaleiro = widthScreen/2 - widthCavaleiro/2
+yCavaleiro = heightScreen/2 - widthCavaleiro/1.5
 posCavaleiro = (xCavaleiro,yCavaleiro)
-
-#Botão Cavaleiro
 
 #Feiticeira  
 xFeiticeira = widthScreen/2 - widthFeiticeira/2
-yFeiticeira = heightScreen/3 - widthFeiticeira/2
+yFeiticeira = heightScreen/2 - widthFeiticeira/1.5
 posFeiticeira = (xFeiticeira,yFeiticeira)
-
-#Botão Feiticeira
 
 #Mago  
 xMago = widthScreen/2 - widthMago/2
-yMago = heightScreen/3 - widthMago/2
+yMago = heightScreen/2 - widthMago/1.5
 posMago = (xMago,yMago)
-
-#Botão Mago
 
 #Princesa  
 xPrincesa = widthScreen/2 - widthPrincesa/2
-yPrincesa = heightScreen/3 - widthPrincesa/2
+yPrincesa = heightScreen/2 - widthPrincesa/1.5
 posPrincesa = (xPrincesa,yPrincesa)
-
-#Botão Princesa
 
 #Personagem Geral Mugshot
 xPersonagemMugshot = 10
@@ -238,7 +225,7 @@ selecionar = True
 
 #Variavel para parar o programa Seleção de Personagens
 verHistoria = True
-
+print(widthScreen/2 - widthBotaoSelecionar/2)
 #-------------SELECIONA PERSONAGEM-------------
 while (selecionar):
         clock.tick(3)
@@ -278,7 +265,7 @@ while (selecionar):
 
                                 
                         
-                        elif xMouse >= xDir and xMouse <= 800 and yMouse >= yDir and yMouse <= yDir + heightD:
+                        elif xMouse >= xDir and xMouse <= 1280 and yMouse >= yDir and yMouse <= yDir + heightD:
                                 print('Clicou na Direita')
                                 setaSom.play()
                         
@@ -301,7 +288,7 @@ while (selecionar):
                                 elif troca == 5:
                                         print("troca==5")
                                         troca = 1
-                        elif xMouse >= xBotaoSelecionar and xMouse <= 550 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
+                        elif xMouse >= xBotaoSelecionar and xMouse <= 640 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
                                 print("Selecionou:" + str(troca))
                                 telaSom.stop()
                                 selectSom.play()
@@ -312,28 +299,32 @@ while (selecionar):
         screen.fill(blue)
         if troca == 1:
                 screen.blit(fundoSalao, posFundo)
-                screen.blit(botaoHeroi, posBotaoHeroi)
+                screen.blit(botaoHeroi, posBotaoPersonagem)
                 #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(heroiSpritesMenu[sprite_index], posHeroi)
                 
         elif troca == 2:
                 
                 screen.blit(fundoSalao, posFundo)
+                screen.blit(botaoCavaleiro, posBotaoPersonagem)
                 #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(cavaleiroSpritesMenu[sprite_index],posCavaleiro)
         
         elif troca == 3:
                 screen.blit(fundoSalao, posFundo)
+                screen.blit(botaoFeiticeira, posBotaoPersonagem)
                 #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(feiticeiraSpritesMenu[sprite_index],posFeiticeira)
                 
         elif troca == 4:
                 screen.blit(fundoSalao, posFundo)
+                screen.blit(botaoMago, posBotaoPersonagem)                
                 #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(magoSpritesMenu[sprite_index],posMago)
 
         elif troca == 5:
                 screen.blit(fundoSalao, posFundo)
+                screen.blit(botaoPrincesa, posBotaoPersonagem)                
                 #screen.blit(fundoPersonagem, posFundoPersonagem)
                 screen.blit(princesaSpritesMenu[sprite_index],posPrincesa)
 
