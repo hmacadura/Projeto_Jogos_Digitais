@@ -304,7 +304,7 @@ while (selecionar):
                                 elif troca == 5:
                                         print("troca==5")
                                         troca = 1
-                        elif xMouse >= xBotaoSelecionar and xMouse <= 640 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
+                        elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
                                 print("Selecionou:" + str(troca))
                                 telaSom.stop()
                                 selectSom.play()
@@ -368,26 +368,35 @@ for event in pygame.event.get():
 if troca == 1:
         print("HERÓI")
         screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-        mensagem="TESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTE"
+        mensagem="TESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTE"
         cor = blue
-        i=0
+        contadorMensagem=0
         tamanhoMsg = len(mensagem)
-        a=20
-        b = 10
-        while i != tamanhoMsg - 1:
-                texto = font.render(mensagem[i], True, cor)
-                screen.blit(texto, [widthPersonagemMugshot + a , b])
-                a = a + 20
-                if a == 1280-widthPersonagemMugshot:
-                        b = b+40
-                        a = 20
-                
-                i = i+1
-                if i == tamanhoMsg:
+        xMensagem=20
+        yMensagem = 10
+        contadorSprite = 0
+        while contadorMensagem != tamanhoMsg - 1:
+                texto = font.render(mensagem[contadorMensagem], True, cor)
+                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                xMensagem = xMensagem + 20
+                if xMensagem == 1280-widthPersonagemMugshot:
+                        if yMensagem < 200:
+                                xMensagem = 20
+                        else:
+                                xMensagem =0
+
+
+                        yMensagem = yMensagem+40
+                        
+                contadorMensagem = contadorMensagem+1
+                if contadorMensagem == tamanhoMsg:
                         break
-                time.sleep(0.1)
+                #time.sleep(0.1)
+                contadorSprite = contadorSprite + 1
                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-                sprite_index = (sprite_index + 1) % 2
+                if contadorSprite == 3:
+                        sprite_index = (sprite_index + 1) % 2
+                        contadorSprite = 0
                 pygame.display.update()
 
 elif troca == 2:
