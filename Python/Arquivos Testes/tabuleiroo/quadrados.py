@@ -25,19 +25,20 @@ while rodando:
         rodando = False
     pygame.draw.rect(screen,cor,Rect(coord,dimensao))
     if direcao:
-        if x == 900:
+        if x != 900:
+            pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+            x = x+90
+        else:
             direcao = False
             y = y-72
-        pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-        x = x+90
     else:
-       
-        if x == 0:
+        if x != 0:
+            pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+            x = x-90
+
+        else:
             direcao = True
             y = y-72    
-        pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-        x = x-90
+        
     pygame.display.update()
-    print (x)
-    print (y)
 
