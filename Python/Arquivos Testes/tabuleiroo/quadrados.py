@@ -14,31 +14,31 @@ for event in pygame.event.get():
 
 
 direcao = True
-x = 0
-y = 648
+coordXTabuleiro = 0
+coordYTabuleiro = 648
 rodando = True
 while rodando:
     cor = (255,0,0)
     dimensao = [90,72]
-    coord =[x,y]
-    if x==0 and y==0:
+    coord =[coordXTabuleiro,coordYTabuleiro]
+    if coordXTabuleiro==0 and coordYTabuleiro==0:
         rodando = False
     pygame.draw.rect(screen,cor,Rect(coord,dimensao))
     if direcao:
-        if x != 900:
+        if coordXTabuleiro != 900:
             pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-            x = x+90
+            coordXTabuleiro = coordXTabuleiro+90
         else:
             direcao = False
-            y = y-72
+            coordYTabuleiro = coordYTabuleiro-72
     else:
-        if x != 0:
+        if coordXTabuleiro != 0:
             pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-            x = x-90
+            coordXTabuleiro = coordXTabuleiro-90
 
         else:
             direcao = True
-            y = y-72    
+            coordYTabuleiro = coordYTabuleiro-72    
         
     pygame.display.update()
 
