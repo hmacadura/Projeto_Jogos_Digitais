@@ -9,10 +9,10 @@ widthScreen = 1280
 heightScreen = 720
 
 #-------------TELA CHEIA-------------
-screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
+#screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
 
 #-------------JANELA NORMAL-------------
-#screen = pygame.display.set_mode( (widthScreen,heightScreen))
+screen = pygame.display.set_mode( (widthScreen,heightScreen))
 
 #-------------Definindo Cores-------------
 black = (0,0,0)
@@ -26,12 +26,13 @@ sprite_index = 0
 
 #-------------Carregando imagens e sons Para Seleção de Personagens-------------
 
+#-------------------------------------------SONS--------------------------------
 telaSom = pygame.mixer.Sound("../../../Sounds/temaZelda.wav")
 
 setaSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoTroca.wav")
 
 selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
-
+#-------------------------------------------Imagens-----------------------------
 fundoSalao = pygame.image.load("../../../Sprites/Fundo/fundoSalao.png").convert_alpha()
 
 setaD = pygame.image.load("../../../Sprites/Menu/setaDirBorda.png").convert_alpha()
@@ -39,6 +40,10 @@ setaD = pygame.image.load("../../../Sprites/Menu/setaDirBorda.png").convert_alph
 setaE = pygame.image.load("../../../Sprites/Menu/setaEsqBorda.png").convert_alpha()
 
 botaoSelecionar = pygame.image.load("../../../Sprites/Menu/botaoSelect.png").convert_alpha()
+
+botaoSemSom = pygame.image.load("../../../Sprites/Menu/som0.png").convert_alpha()
+
+botaoComSom = pygame.image.load("../../../Sprites/Menu/som1.png").convert_alpha()
 
 botaoHeroi = pygame.image.load("../../../Sprites/Menu/botaoHeroi.png").convert_alpha()
 
@@ -72,7 +77,7 @@ princesaSpritesMenu = []
 for countMenu in range (1,3):
         princesaSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Imagens Normais/Princesa" + str(countMenu) + ".png").convert_alpha())
 
-#-------------Carregando imagens e sons Para Mugshots-------------
+#-------------Carregando imagens Mugshots-------------
 heroiSpritesMugshot = []
 for countMenu in range (1,3):
         heroiSpritesMugshot.append(pygame.image.load("../../../Sprites/Personagens/Herói/Mugshot/Heroi" + str(countMenu) + ".png").convert_alpha())
@@ -129,6 +134,14 @@ heightBotaoPersonagem = botaoHeroi.get_height()
 #Botão Selecionar
 widthBotaoSelecionar = botaoSelecionar.get_width()
 heightBotaoSelecionar = botaoSelecionar.get_height()
+
+#Botão Sem Som
+widthBotaoSemSom = botaoSemSom.get_width()
+heightBotaoSemSom = botaoSemSom.get_height()
+
+#Botão Com Som
+widthBotaoComSom = botaoComSom.get_width()
+heightBotaoComSom = botaoComSom.get_height()
 
 #Fundo Personagem 
 widthFundoPersonagem = fundoPersonagem.get_width()
@@ -207,28 +220,11 @@ clock = pygame.time.Clock()
 #Variavel que definirá qual personagem o usuário escolheu
 troca = 1
 
+#Variavel que definirá se tem som
+escolhaSom = 0
+
 #Tamanho do Texto
 font = pygame.font.Font('freesansbold.ttf', 32)
-
-#-------------Função que escreve na tela-------------
-def mensagemTela(mensagem,cor):
-        i=0
-        tamanhoMsg = len(mensagem)
-        a=20
-        b = 10
-        while i != tamanhoMsg - 1:
-                texto = font.render(mensagem[i], True, cor)
-                screen.blit(texto, [widthPersonagemMugshot + a , b])
-                a = a + 20
-                if a == 1280-widthPersonagemMugshot:
-                        b = b+40
-                        a = 20
-                
-                i = i+1
-                if i == tamanhoMsg:
-                        break
-                time.sleep(0.1)
-                pygame.display.update()
 
 #Variavel para parar o programa geral
 running = True
@@ -237,7 +233,16 @@ running = True
 verInicio = True
 
 #Variavel para parar a Seleção de Personagens
-selecionar = True
+selecionar = False
+
+#Variavel para parar o Menu
+verMenu = True
+
+#Variavel para parar a Tela de Instrução
+instrucaoTela = False
+
+#Variavel para parar a Tela de Som
+somTela = False
 
 #Variavel para parar o Mugshot
 verHistoria = True
@@ -264,8 +269,112 @@ while (verInicio):
                                 running = False
                 screen.fill(red)
                 screen.blit(botaoSelecionar ,   posBotaoSelecionar)             
-                pygame.display.update()
+        pygame.display.update()
 
+#-------------Tela Menu-------------
+while (verMenu):
+        clock.tick(3)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        verInicio = False
+                        pygame.quit()
+                        sys.exit()
+                        
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        xMouse, yMouse = event.pos
+                                     #x botão                                                                        #y botão
+                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 200 + heightBotaoSelecionar:
+                                print("Entrando no Jogo:")
+                                selectSom.play()
+                                pygame.time.wait(300)
+                                selecionar = True
+                                verMenu = False
+                                running = False
+                                                                
+                        elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 350 + heightBotaoSelecionar:
+                                print("Entrando na Tela Instruções:")
+                                selectSom.play()
+                                pygame.time.wait(300)
+                                instrucaoTela = True
+                                verMenu = False
+                                running = False
+                                
+                        elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 500 + heightBotaoSelecionar:
+                                print("Entrando na Tela de Som:")
+                                selectSom.play()
+                                pygame.time.wait(300)
+                                somTela = True
+                                verMenu = False
+                                running = False
+                                
+                screen.fill(red)
+                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),200))
+                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),350))        
+                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),500))                             
+        pygame.display.update()
+                
+#-------------Tela Instruções-------------
+while (somTela):
+        clock.tick(3)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        verInicio = False
+                        pygame.quit()
+                        sys.exit()
+                        
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        xMouse, yMouse = event.pos
+
+                                     #x botão                                                                        #y botão
+                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 500 + heightBotaoSelecionar:
+                                print("Com Som")
+                                selectSom.play()
+                                pygame.time.wait(300)
+                                verMenu = True
+                                running = False
+                                instrucaoTela = False
+
+                screen.fill(green)
+                if escolhaSom == 0: 
+                        screen.blit( botaoComSom,   (widthScreen/2 - (widthBotaoComSom/2),500))
+                elif escolhaSom == 1:
+                        screen.blit( botaoSemSom,   (widthScreen/2 - (widthBotaoSemSom/2),500))                        
+        pygame.display.update()
+        
+#-------------Tela Som-------------
+while (instrucaoTela):
+        clock.tick(3)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        verInicio = False
+                        pygame.quit()
+                        sys.exit()
+                        
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        xMouse, yMouse = event.pos
+
+                                     #x botão                                                                        #y botão
+                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 500 + heightBotaoSelecionar:
+                                print("Voltando pro menu:")
+                                selectSom.play()
+                                pygame.time.wait(300)
+
+                                if escolhaSom == 0:
+                                        print("escolhaSom == 0")
+                                        troca = 1
+
+                                elif escolhaSom == 1:
+                                        print("escolhaSom == 1")
+                                        troca = 0        
+                                verMenu = True
+                                running = False
+                                instrucaoTela = False
+
+                screen.fill(green)
+                if troca == 1:
+                        screen.blit(botaoComSom,(widthScreen/2- widthBotaoComSom/2),500)
+                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),500))                             
+        pygame.display.update()                  
 #-------------SELECIONA PERSONAGEM-------------
 #Loop da música
 telaSom.play(-1)
