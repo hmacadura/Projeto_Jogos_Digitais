@@ -230,19 +230,45 @@ def mensagemTela(mensagem,cor):
                 time.sleep(0.1)
                 pygame.display.update()
 
-#Loop da música
-telaSom.play(-1)
-
 #Variavel para parar o programa geral
 running = True
 
-#Variavel para parar o programa Seleção de Personagens
+#Variavel para parar a tela inicial
+verInicio = True
+
+#Variavel para parar a Seleção de Personagens
 selecionar = True
 
-#Variavel para parar o programa Seleção de Personagens
+#Variavel para parar o Mugshot
 verHistoria = True
+
 print(widthScreen/2 - widthBotaoSelecionar/2)
+
+#-------------Tela Início-------------
+while (verInicio):
+        clock.tick(3)
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        verInicio = False
+                        pygame.quit()
+                        sys.exit()
+                        
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        xMouse, yMouse = event.pos
+
+                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
+                                print("Saindo da Tela Início:")
+                                selectSom.play()
+                                pygame.time.wait(300)
+                                verInicio = False
+                                running = False
+                screen.fill(red)
+                screen.blit(botaoSelecionar ,   posBotaoSelecionar)             
+                pygame.display.update()
+
 #-------------SELECIONA PERSONAGEM-------------
+#Loop da música
+telaSom.play(-1)
 while (selecionar):
         clock.tick(3)
         for event in pygame.event.get():
@@ -250,11 +276,10 @@ while (selecionar):
                         running = False
                         pygame.quit()
                         sys.exit()
+                        
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         xMouse, yMouse = event.pos
-                
-                
-                                        
+                        
                         if xMouse >= xEsq and xMouse <= widthE and yMouse >= yEsq and yMouse <= yEsq + heightE:
                                 print('Clicou na Esquerda')
                                 setaSom.play()
@@ -304,6 +329,7 @@ while (selecionar):
                                 elif troca == 5:
                                         print("troca==5")
                                         troca = 1
+                                        
                         elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
                                 print("Selecionou:" + str(troca))
                                 telaSom.stop()
@@ -356,6 +382,7 @@ while (selecionar):
 print(troca)
 
 screen.fill(black)
+
 #-------------Mugshot-------------
 clock.tick(3)
 for event in pygame.event.get():
