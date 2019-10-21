@@ -41,9 +41,21 @@ setaE = pygame.image.load("../../../Sprites/Menu/setaEsqBorda.png").convert_alph
 
 botaoSelecionar = pygame.image.load("../../../Sprites/Menu/botaoSelect.png").convert_alpha()
 
-botaoSemSom = pygame.image.load("../../../Sprites/Menu/som0.png").convert_alpha()
+botaoIniciar = pygame.image.load("../../../Sprites/Menu/botaoIniciar.png").convert_alpha()
 
-botaoComSom = pygame.image.load("../../../Sprites/Menu/som1.png").convert_alpha()
+botaoOpcoes = pygame.image.load("../../../Sprites/Menu/botaoOpcoes.png").convert_alpha()
+
+botaoInstrucoes = pygame.image.load("../../../Sprites/Menu/botaoInstrucoes.png").convert_alpha()
+
+botaoVoltar = pygame.image.load("../../../Sprites/Menu/botaoVoltar.png").convert_alpha()
+
+botaoComSom = pygame.image.load("../../../Sprites/Menu/botaoComSom.png").convert_alpha()
+
+botaoSemSom = pygame.image.load("../../../Sprites/Menu/botaoSemSom.png").convert_alpha()
+
+iconeSemSom = pygame.image.load("../../../Sprites/Menu/som0.png").convert_alpha()
+
+iconeComSom = pygame.image.load("../../../Sprites/Menu/som1.png").convert_alpha()
 
 botaoHeroi = pygame.image.load("../../../Sprites/Menu/botaoHeroi.png").convert_alpha()
 
@@ -135,9 +147,33 @@ heightBotaoPersonagem = botaoHeroi.get_height()
 widthBotaoSelecionar = botaoSelecionar.get_width()
 heightBotaoSelecionar = botaoSelecionar.get_height()
 
-#Botão Som
-widthBotaoSom = botaoComSom.get_width()
-heightBotaoSom = botaoComSom.get_height()
+#Botão Iniciar
+widthBotaoIniciar = botaoIniciar.get_width()
+heightBotaoIniciar = botaoIniciar.get_height()
+
+#Botão Opções
+widthBotaoOpcoes = botaoOpcoes.get_width()
+heightBotaoOpcoes = botaoOpcoes.get_height()
+
+#Botão Instruções
+widthBotaoInstrucoes = botaoInstrucoes.get_width()
+heightBotaoInstrucoes = botaoInstrucoes.get_height()
+
+#Botão Voltar
+widthBotaoVoltar = botaoVoltar.get_width()
+heightBotaoVoltar = botaoVoltar.get_height()
+
+#Botão Com Som
+widthBotaoComSom = botaoComSom.get_width()
+heightBotaoComSom = botaoComSom.get_height()
+
+#Botão Sem Som
+widthBotaoSemSom = botaoSemSom.get_width()
+heightBotaoSemSom = botaoSemSom.get_height()
+
+#Ícone Som
+widthIconeSom = iconeComSom.get_width()
+heightIconeSom = iconeComSom.get_height()
 
 #Fundo Personagem 
 widthFundoPersonagem = fundoPersonagem.get_width()
@@ -163,10 +199,10 @@ xDir = widthScreen - widthD
 yDir = heightScreen/2 - heightD/2 
 posD = (xDir,yDir)
 
-#Botão Som
-xBotaoSom = widthScreen/2 - widthBotaoSom/2
-yBotaoSom = heightScreen - heightBotaoSom*2
-posBotaoSom = (xBotaoSom,yBotaoSom)
+#Ícone Som
+xIconeSom = widthScreen/2 - widthIconeSom/2
+yIconeSom = heightScreen - heightIconeSom*2
+posIconeSom = (xIconeSom,yIconeSom)
 
 #Botão Selecionar
 xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
@@ -281,7 +317,7 @@ while (verMenu):
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         xMouse, yMouse = event.pos
                                      #x botão                                                                        #y botão
-                        '''if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 200 + heightBotaoSelecionar:
+                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 200 + heightBotaoSelecionar:
                                 print("Entrando no Jogo:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -295,9 +331,9 @@ while (verMenu):
                                 pygame.time.wait(300)
                                 instrucaoTela = True
                                 verMenu = False
-                                running = False'''
+                                running = False
                                 
-                        if xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 500 + heightBotaoSelecionar:
+                        elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= 500 + heightBotaoSelecionar:
                                 print("Entrando na Tela de Som:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -306,9 +342,9 @@ while (verMenu):
                                 running = False
                                 
                 screen.fill(red)
-                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),200))
-                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),350))        
-                screen.blit(botaoSelecionar ,   (widthScreen/2 - (widthBotaoSelecionar/2),500))                             
+                screen.blit(botaoIniciar ,   (widthScreen/2 - (widthBotaoIniciar/2),200))
+                screen.blit(botaoInstrucoes ,   (widthScreen/2 - (widthBotaoInstrucoes/2),350))        
+                screen.blit(botaoOpcoes ,   (widthScreen/2 - (widthBotaoOpcoes/2),500))                             
         pygame.display.update()
 #-------------Tela Som-------------
 while (somTela):
@@ -331,7 +367,7 @@ while (somTela):
                                 running = False
                                 somTela = False
                                 
-                        elif xMouse >= xBotaoSom and xMouse <= 800 and yMouse >= yBotaoSom and yMouse <= 300 + heightBotaoSom:
+                        elif xMouse >= xIconeSom and xMouse <= 800 and yMouse >= yIconeSom and yMouse <= 300 + heightIconeSom:
                                 print("Menu de Som:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -347,13 +383,13 @@ while (somTela):
                 screen.fill(green)
                 if escolhaSom == 1:
                         screen.fill(green)
-                        screen.blit(botaoComSom,posBotaoSom)
+                        screen.blit(iconeComSom,posIconeSom)
                         print("Jogo está COM Som")
                 elif escolhaSom == 0:
                         screen.fill(green)
-                        screen.blit(botaoSemSom,posBotaoSom)
+                        screen.blit(iconeSemSom,posIconeSom)
                         print("Jogo está SEM Som")
-        screen.blit(botaoSelecionar,(widthScreen/2 - (widthBotaoSelecionar/2),500))                             
+        screen.blit(botaoVoltar,(widthScreen/2 - (widthBotaoVoltar/2),500))                             
         pygame.display.update()
         
 #-------------Tela Instruções-------------
