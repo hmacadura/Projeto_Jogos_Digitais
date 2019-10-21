@@ -14,31 +14,55 @@ for event in pygame.event.get():
 
 
 direcao = True
-coordXTabuleiro = 0
-coordYTabuleiro = 648
+coordXTabuleiroEsquerda = 0
+coordXTabuleiroDireita= 72
+coordYTabuleiroCima = 648
+coordYTabuleiroBaixo = 720
 rodando = True
+contador = 0
+numSorteado = 20
 while rodando:
     cor = (255,0,0)
     dimensao = [90,72]
-    coord =[coordXTabuleiro,coordYTabuleiro]
-    if coordXTabuleiro==0 and coordYTabuleiro==0:
+    coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+    if coordXTabuleiroEsquerda==0 and coordYTabuleiroCima==0:
         rodando = False
-    pygame.draw.rect(screen,cor,Rect(coord,dimensao))
     if direcao:
-        if coordXTabuleiro != 900:
-            pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-            coordXTabuleiro = coordXTabuleiro+90
-        else:
-            direcao = False
-            coordYTabuleiro = coordYTabuleiro-72
+        if contador != numSorteado:
+            if coordXTabuleiroEsquerda != 810 :
+                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                coordXTabuleiroEsquerda = coordXTabuleiroEsquerda+90
+                coordXTabuleiroDireita = coordXTabuleiroDireita+90
+                pygame.time.wait(100)
+                contador +=1
+            else:
+                direcao = False
+                coordYTabuleiroCima = coordYTabuleiroCima-72
+                coordYTabuleiroBaixo = coordYTabuleiroBaixo-72
+                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                contador +=1
+                pygame.time.wait(100)
     else:
-        if coordXTabuleiro != 0:
-            pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-            coordXTabuleiro = coordXTabuleiro-90
-
-        else:
-            direcao = True
-            coordYTabuleiro = coordYTabuleiro-72    
-        
+        if contador != numSorteado:
+            if coordXTabuleiroEsquerda != 0:
+                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
+                coordXTabuleiroDireita = coordXTabuleiroDireita-90
+                contador +=1
+                pygame.time.wait(100)
+            else:
+                direcao = True
+                coordYTabuleiroCima = coordYTabuleiroCima-72
+                coordYTabuleiroBaixo = coordYTabuleiroBaixo-72
+                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                pygame.time.wait(100)
+                contador +=1
+            if contador == numSorteado:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                        xMouse, yMouse = event.pos
+                        if xMouse >= coordXTabuleiroEsquerda and xMouse <= coordXTabuleiroDireita and yMouse >= coordYTabuleiroBaixo and yMouse <= coordYTabuleiroCima:
+                            print("Acertou:")
+                        else:
+                            print ("errou")
     pygame.display.update()
 
