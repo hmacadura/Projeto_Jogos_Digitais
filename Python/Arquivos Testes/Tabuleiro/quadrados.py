@@ -13,6 +13,17 @@ for event in pygame.event.get():
         exit()
 
 
+
+def clicouTabuleiro (PosMouse, Superficie, PosSuperficie):
+        #Rect(x, y, width, height)
+        widthSuperficie = 90
+        heightSuperficie = 72
+        print (PosMouse)
+        print (PosSuperficie)
+        return PosMouse[0] >= PosSuperficie[0] and PosMouse[0] <= (PosSuperficie[0] + widthSuperficie) and PosMouse[1] >= PosSuperficie[1] and PosMouse[1] <= (PosSuperficie[1] +  heightSuperficie)
+
+
+
 direcao = True
 coordXTabuleiroEsquerda = 0
 coordXTabuleiroDireita= 72
@@ -20,12 +31,12 @@ coordYTabuleiroCima = 648
 coordYTabuleiroBaixo = 720
 rodando = True
 contador = 0
-numSorteado = 20
+numSorteado = 40
 while rodando:
     cor = (255,0,0)
     dimensao = [90,72]
     coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-    if coordXTabuleiroEsquerda==0 and coordYTabuleiroCima==0:
+    if contador == numSorteado:
         rodando = False
     if direcao:
         if contador != numSorteado:
@@ -57,12 +68,22 @@ while rodando:
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 pygame.time.wait(100)
                 contador +=1
-            if contador == numSorteado:
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                        xMouse, yMouse = event.pos
-                        if xMouse >= coordXTabuleiroEsquerda and xMouse <= coordXTabuleiroDireita and yMouse >= coordYTabuleiroBaixo and yMouse <= coordYTabuleiroCima:
-                            print("Acertou:")
-                        else:
-                            print ("errou")
     pygame.display.update()
+
+localiza = True
+retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
+posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
+while localiza:
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            posMouse = event.pos
+            if contador == numSorteado:
+                if clicouTabuleiro(posMouse,retangulo,posicao ):
+                    print("Acertou:")
+                    localiza = False
+                else:
+                    print ("errou")
+
+
+
 
