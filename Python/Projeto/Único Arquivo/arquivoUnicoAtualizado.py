@@ -34,7 +34,7 @@ setaSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoTroca.wav")
 
 selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
 #-------------------------------------------Imagens-----------------------------
-fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/testeTelaInicio.png").convert_alpha()
+fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicio.png").convert_alpha()
 
 fundoSalao = pygame.image.load("../../../Sprites/Fundo/fundoSalao.png").convert_alpha()
 
@@ -218,37 +218,37 @@ posIconeSom = (xIconeSom,yIconeSom)
 
 #Botão Selecionar
 xBotaoSelecionar = widthScreen/2 - widthBotaoSelecionar/2
-yBotaoSelecionar = heightScreen/2 - heightBotaoSelecionar*1.5
+yBotaoSelecionar = heightScreen/10
 posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 
 #Botão Voltar
 xBotaoVoltar = widthScreen/2 - widthBotaoVoltar/2
-yBotaoVoltar = heightScreen/2 - heightBotaoVoltar*1.5
+yBotaoVoltar = widthScreen/3
 posBotaoVoltar = (xBotaoVoltar,yBotaoVoltar)
 
 #Botão Iniciar
 xBotaoIniciar = widthScreen/2 - widthBotaoIniciar/2 
-yBotaoIniciar = heightScreen/2 - heightBotaoIniciar/2
+yBotaoIniciar = heightScreen/2*1.2 - heightBotaoIniciar*1.2
 posBotaoIniciar = (xBotaoIniciar,yBotaoIniciar)
 
 #Botão Instruções
 xBotaoInstrucoes = widthScreen/2 - widthBotaoInstrucoes/2
-yBotaoInstrucoes = yBotaoIniciar + heightBotaoInstrucoes/2
+yBotaoInstrucoes = yBotaoIniciar + heightBotaoInstrucoes*1.2
 posBotaoInstrucoes = (xBotaoInstrucoes,yBotaoInstrucoes)
 
 #Botão Opções
 xBotaoOpcoes = widthScreen/2 - widthBotaoOpcoes/2
-yBotaoOpcoes = yBotaoInstrucoes + heightBotaoOpcoes/2
+yBotaoOpcoes = yBotaoInstrucoes + heightBotaoOpcoes*1.2
 posBotaoOpcoes = (xBotaoOpcoes,yBotaoOpcoes)
 
 #Botão Com Som
 xBotaoComSom = widthScreen/2 - widthBotaoComSom/2
-yBotaoComSom = heightBotaoComSom/5
+yBotaoComSom = widthScreen/10
 posBotaoComSom = (xBotaoComSom,yBotaoComSom)
 
 #Botão Sem Som
 xBotaoSemSom = widthScreen/2 - widthBotaoSemSom/2
-yBotaoSemSom = heightBotaoSemSom/5
+yBotaoSemSom = yBotaoComSom
 posBotaoSemSom = (xBotaoSemSom,yBotaoSemSom)
 
 #Fundo Personagem 
@@ -261,37 +261,36 @@ xHeroi = widthScreen/2 - widthHeroi/2
 yHeroi = heightScreen/2 - widthHeroi/1.5
 posHeroi = (xHeroi,yHeroi)
 
-#Descrição Personagem
-xBotaoPersonagem = widthScreen/2 - widthBotaoPersonagem/2
-yBotaoPersonagem = heightScreen - heightBotaoPersonagem/1.3
-posBotaoPersonagem = (xBotaoPersonagem,yBotaoPersonagem)
-
 #Cavaleiro  
-xCavaleiro = widthScreen/2 - widthCavaleiro/2
-yCavaleiro = heightScreen/2 - widthCavaleiro/1.5
+xCavaleiro = xHeroi
+yCavaleiro = yHeroi
 posCavaleiro = (xCavaleiro,yCavaleiro)
 
 #Feiticeira  
-xFeiticeira = widthScreen/2 - widthFeiticeira/2
-yFeiticeira = heightScreen/2 - widthFeiticeira/1.5
+xFeiticeira = xHeroi
+yFeiticeira = yHeroi
 posFeiticeira = (xFeiticeira,yFeiticeira)
 
 #Mago  
-xMago = widthScreen/2 - widthMago/2
-yMago = heightScreen/2 - widthMago/1.5
+xMago = xHeroi
+yMago = yHeroi
 posMago = (xMago,yMago)
 
 #Princesa  
-xPrincesa = widthScreen/2 - widthPrincesa/2
-yPrincesa = heightScreen/2 - widthPrincesa/1.5
+xPrincesa = xHeroi
+yPrincesa = yHeroi
 posPrincesa = (xPrincesa,yPrincesa)
+
+#Botão Descrição Personagem
+xBotaoPersonagem = widthScreen/2 - widthBotaoPersonagem/2
+yBotaoPersonagem = heightScreen/2 + heightBotaoPersonagem*1.5
+posBotaoPersonagem = (xBotaoPersonagem,yBotaoPersonagem)
+
 
 #Personagem Geral Mugshot
 xPersonagemMugshot = 10
 yPersonagemMugshot = 10
 posPersonagemMugshot = (xPersonagemMugshot,yPersonagemMugshot)
-
-screen.fill(blue)
 
 clock = pygame.time.Clock()
 
@@ -328,7 +327,7 @@ verHistoria = True
 #-------------Tela Início-------------
 while (verInicio):
         screen.blit(fundoTelaInicio ,posFundo)
-        clock.tick(3)
+        clock.tick(60)
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         verInicio = False
@@ -347,7 +346,7 @@ while (verInicio):
 
 #-------------Tela Menu-------------
 while (verMenu):
-        clock.tick(3)
+        clock.tick(60)
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         verInicio = False
@@ -356,32 +355,53 @@ while (verMenu):
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
                         PosMouse = event.pos
-
+                        
                         if clicou(PosMouse, botaoIniciar, posBotaoIniciar):
-                                print("Entrando no Jogo:")
-                                selectSom.play()
-                                pygame.time.wait(300)
-                                selecionar = True
-                                verMenu = False
-                                running = False
+                                if escolhaSom == 0:
+                                        print("Entrando no Jogo:")
+                                        selecionar = True
+                                        verMenu = False
+                                        running = False
+                                        
+                                elif escolhaSom == 1:
+                                        print("Entrando no Jogo:")
+                                        selectSom.play()
+                                        pygame.time.wait(300)
+                                        selecionar = True
+                                        verMenu = False
+                                        running = False
 
                         elif clicou(PosMouse, botaoInstrucoes, posBotaoInstrucoes):
-                                print("Entrando na Tela de Instruções:")
-                                selectSom.play()
-                                pygame.time.wait(300)
-                                instrucaoTela = True
-                                verMenu = False
-                                running = False
+                                if escolhaSom == 0:
+                                        print("Entrando na Tela de Instruções:")
+                                        instrucaoTela = True
+                                        verMenu = False
+                                        running = False
+                                        
+                                elif escolhaSom == 1:
+                                        print("Entrando na Tela de Instruções:")
+                                        selectSom.play()
+                                        pygame.time.wait(300)
+                                        instrucaoTela = True
+                                        verMenu = False
+                                        running = False
                                 
                                                         
                         elif clicou (PosMouse, botaoOpcoes, posBotaoOpcoes):
-                                print("Entrando na Tela de Som:")
-                                selectSom.play()
-                                pygame.time.wait(300)
-                                somTela = True
-                                verMenu = False
-                                running = False                      
-                                               
+                                if escolhaSom == 0:
+                                        print("Entrando na Tela de Som:")
+                                        somTela = True
+                                        verMenu = False
+                                        running = False
+                                        
+                                elif escolhaSom == 1:
+                                        print("Entrando na Tela de Som:")
+                                        selectSom.play()
+                                        pygame.time.wait(300)
+                                        somTela = True
+                                        verMenu = False
+                                        running = False
+                                                       
                                 
                 screen.blit(botaoIniciar    , posBotaoIniciar)
                 screen.blit(botaoInstrucoes , posBotaoInstrucoes)        
@@ -389,7 +409,7 @@ while (verMenu):
         pygame.display.update()
 #-------------Tela Som-------------
 while (somTela):
-        clock.tick(3)
+        clock.tick(60)
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         verInicio = False
@@ -397,10 +417,9 @@ while (somTela):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        xMouse, yMouse = event.pos
+                        PosMouse = event.pos
 #ARRUMAR OS BOTÕES
-                                     #x botão                                                                        #y botão
-                        if xMouse >=  xBotaoVoltar and xMouse <= 900 and yMouse >= yBotaoVoltar and yMouse <= 500 + heightBotaoVoltar:
+                        if clicou(PosMouse, botaoVoltar, posBotaoVoltar):
                                 print("Voltando pro menu:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -408,12 +427,11 @@ while (somTela):
                                 running = False
                                 somTela = False
                                 
-                        elif xMouse >= xIconeSom and xMouse <= 800 and yMouse >= yIconeSom and yMouse <= 300 + heightIconeSom:
-                                print("Menu de Som:")
-                                selectSom.play()
-                                pygame.time.wait(300)
-
+                        elif clicou (PosMouse, iconeComSom, posIconeSom):
+                                print("Menu de Som:")                                        
                                 if escolhaSom == 0:
+                                        selectSom.play()
+                                        pygame.time.wait(300)
                                         print("escolhaSom == 0")
                                         escolhaSom = 1
 
@@ -444,10 +462,9 @@ while (instrucaoTela):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        xMouse, yMouse = event.pos
-
-                                     #x botão                                                                        #y botão
-                        if xMouse >= xBotaoSelecionar and xMouse <= 0 and yMouse >= yBotaoSelecionar and yMouse <= 0 + heightBotaoSelecionar:
+                        PosMouse = event.pos
+                        
+                        if clicou(PosMouse, botaoVoltar, posBotaoVoltar):
                                 print("Voltando pro menu:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -472,9 +489,8 @@ while (selecionar):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        xMouse, yMouse = event.pos
-                        
-                        if xMouse >= xEsq and xMouse <= widthE and yMouse >= yEsq and yMouse <= yEsq + heightE:
+                        PosMouse = event.pos
+                        if clicou(PosMouse, setaE, posE):
                                 print('Clicou na Esquerda')
                                 setaSom.play()
                                 
@@ -499,8 +515,7 @@ while (selecionar):
                                         troca = 4
 
                                 
-                        
-                        elif xMouse >= xDir and xMouse <= 1280 and yMouse >= yDir and yMouse <= yDir + heightD:
+                        elif clicou(PosMouse, setaD, posD):
                                 print('Clicou na Direita')
                                 setaSom.play()
                         
@@ -524,7 +539,7 @@ while (selecionar):
                                         print("troca==5")
                                         troca = 1
                                         
-                        elif xMouse >= xBotaoSelecionar and xMouse <= 800 and yMouse >= yBotaoSelecionar and yMouse <= yBotaoSelecionar + heightBotaoSelecionar:
+                        elif clicou(PosMouse, botaoSelecionar, posBotaoSelecionar):
                                 print("Selecionou:" + str(troca))
                                 telaSom.stop()
                                 selectSom.play()
