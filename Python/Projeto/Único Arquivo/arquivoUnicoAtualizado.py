@@ -115,12 +115,12 @@ for countMenu in range (1,3):
 
 
 #-------------Funcoes-------------
-def clicou (PosMouse, Superficie, PosSuperficie):
+def clicou (posMouse, Superficie, PosSuperficie):
         #Rect(x, y, width, height)
         widthSuperficie = Superficie.get_rect()[2]
         heightSuperficie = Superficie.get_rect()[3]
         
-        return PosMouse[0] >= PosSuperficie[0] and PosMouse[0] <= (PosSuperficie[0] + widthSuperficie) and PosMouse[1] >= PosSuperficie[1] and PosMouse[1] <= (PosSuperficie[1] +  heightSuperficie)
+        return posMouse[0] >= PosSuperficie[0] and posMouse[0] <= (PosSuperficie[0] + widthSuperficie) and posMouse[1] >= PosSuperficie[1] and posMouse[1] <= (PosSuperficie[1] +  heightSuperficie)
 
 #-------------Largura e Altura das Sprites------------- 
 #Heroi
@@ -298,7 +298,7 @@ clock = pygame.time.Clock()
 troca = 1
 
 #Variavel que definirá se tem som
-escolhaSom = 1
+escolhaSom = 0
 
 #Tamanho do Texto
 font = pygame.font.Font('freesansbold.ttf', 32)
@@ -335,9 +335,9 @@ while (verInicio):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        xMouse, yMouse = event.pos
+                        posMouse = event.pos
 
-                        if xMouse >= 0 and xMouse <= widthScreen  and yMouse >= 0 and yMouse <= heightScreen:
+                        if clicou(posMouse,fundoTelaInicio, posFundo):
                                 print("Saindo da Tela Início:")
                                 selectSom.play()
                                 verInicio = False
@@ -354,54 +354,39 @@ while (verMenu):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        PosMouse = event.pos
+                        posMouse = event.pos
                         
-                        if clicou(PosMouse, botaoIniciar, posBotaoIniciar):
-                                if escolhaSom == 0:
-                                        print("Entrando no Jogo:")
-                                        selecionar = True
-                                        verMenu = False
-                                        running = False
-                                        
-                                elif escolhaSom == 1:
-                                        print("Entrando no Jogo:")
+                        if clicou(posMouse, botaoIniciar, posBotaoIniciar):
+                                print("Entrando no Jogo:")
+                                if escolhaSom == 1:
                                         selectSom.play()
                                         pygame.time.wait(300)
-                                        selecionar = True
-                                        verMenu = False
-                                        running = False
+                                        
+                                selecionar = True
+                                verMenu = False
+                                running = False
 
-                        elif clicou(PosMouse, botaoInstrucoes, posBotaoInstrucoes):
-                                if escolhaSom == 0:
-                                        print("Entrando na Tela de Instruções:")
-                                        instrucaoTela = True
-                                        verMenu = False
-                                        running = False
-                                        
-                                elif escolhaSom == 1:
-                                        print("Entrando na Tela de Instruções:")
+                        elif clicou(posMouse, botaoInstrucoes, posBotaoInstrucoes):
+                                print("Entrando na Tela de Instruções:")
+                                if escolhaSom == 1:
                                         selectSom.play()
                                         pygame.time.wait(300)
-                                        instrucaoTela = True
-                                        verMenu = False
-                                        running = False
-                                
+                                        
+                                instrucaoTela = True
+                                verMenu = False
+                                running = False
+                        
                                                         
-                        elif clicou (PosMouse, botaoOpcoes, posBotaoOpcoes):
-                                if escolhaSom == 0:
-                                        print("Entrando na Tela de Som:")
-                                        somTela = True
-                                        verMenu = False
-                                        running = False
-                                        
-                                elif escolhaSom == 1:
-                                        print("Entrando na Tela de Som:")
+                        elif clicou (posMouse, botaoOpcoes, posBotaoOpcoes):
+                                print("Entrando na Tela de Som:")
+                                if escolhaSom == 1:
                                         selectSom.play()
                                         pygame.time.wait(300)
-                                        somTela = True
-                                        verMenu = False
-                                        running = False
-                                                       
+                                        
+                                somTela = True
+                                verMenu = False
+                                running = False
+                                               
                                 
                 screen.blit(botaoIniciar    , posBotaoIniciar)
                 screen.blit(botaoInstrucoes , posBotaoInstrucoes)        
@@ -417,9 +402,9 @@ while (somTela):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        PosMouse = event.pos
+                        posMouse = event.pos
 #ARRUMAR OS BOTÕES
-                        if clicou(PosMouse, botaoVoltar, posBotaoVoltar):
+                        if clicou(posMouse, botaoVoltar, posBotaoVoltar):
                                 print("Voltando pro menu:")
                                 selectSom.play()
                                 pygame.time.wait(300)
@@ -427,7 +412,7 @@ while (somTela):
                                 running = False
                                 somTela = False
                                 
-                        elif clicou (PosMouse, iconeComSom, posIconeSom):
+                        elif clicou (posMouse, iconeComSom, posIconeSom):
                                 print("Menu de Som:")                                        
                                 if escolhaSom == 0:
                                         selectSom.play()
@@ -454,7 +439,7 @@ while (somTela):
         
 #-------------Tela Instruções-------------
 while (instrucaoTela):
-        clock.tick(3)
+        clock.tick(60)
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         verInicio = False
@@ -462,24 +447,24 @@ while (instrucaoTela):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        PosMouse = event.pos
+                        posMouse = event.pos
                         
-                        if clicou(PosMouse, botaoVoltar, posBotaoVoltar):
+                        if clicou(posMouse, botaoVoltar, posBotaoVoltar):
                                 print("Voltando pro menu:")
-                                selectSom.play()
-                                pygame.time.wait(300)
+                                if escolhaSom == 1:
+                                        selectSom.play()
+                                        pygame.time.wait(300)
                                 verMenu = True
                                 running = False
                                 instrucaoTela = False
-        screen.fill(blue)
-                        
-                                
-                
-
+        screen.fill(white)
+        screen.blit(botaoVoltar,(xBotaoVoltar,500))                             
+           
         pygame.display.update()                  
 #-------------SELECIONA PERSONAGEM-------------
 #Loop da música
-telaSom.play(-1)
+if escolhaSom == 1:
+        telaSom.play(-1)
 while (selecionar):
         clock.tick(3)
         for event in pygame.event.get():
@@ -489,11 +474,12 @@ while (selecionar):
                         sys.exit()
                         
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                        PosMouse = event.pos
-                        if clicou(PosMouse, setaE, posE):
+                        posMouse = event.pos
+                        if clicou(posMouse, setaE, posE):
                                 print('Clicou na Esquerda')
-                                setaSom.play()
-                                
+                                if escolhaSom == 1:
+                                        setaSom.play()
+        
                                 if troca == 1:
                                         print("troca==1")
                                         troca = 5
@@ -515,10 +501,10 @@ while (selecionar):
                                         troca = 4
 
                                 
-                        elif clicou(PosMouse, setaD, posD):
+                        elif clicou(posMouse, setaD, posD):
                                 print('Clicou na Direita')
-                                setaSom.play()
-                        
+                                if escolhaSom == 1:
+                                        setaSom.play()
                                 if troca == 1:
                                         print("troca==1")
                                         troca = 2
@@ -539,11 +525,13 @@ while (selecionar):
                                         print("troca==5")
                                         troca = 1
                                         
-                        elif clicou(PosMouse, botaoSelecionar, posBotaoSelecionar):
+                        elif clicou(posMouse, botaoSelecionar, posBotaoSelecionar):
                                 print("Selecionou:" + str(troca))
-                                telaSom.stop()
-                                selectSom.play()
-                                pygame.time.wait(300)
+                                if escolhaSom == 1:
+                                        telaSom.stop()
+                                        selectSom.play()
+                                        pygame.time.wait(300)
+                                        
                                 selecionar = False
                                 running = False
                        
