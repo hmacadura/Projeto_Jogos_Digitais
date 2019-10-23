@@ -31,7 +31,7 @@ coordYTabuleiroCima = 648
 coordYTabuleiroBaixo = 720
 rodando = True
 contador = 0
-numSorteado = 40
+numSorteado = 100
 while rodando:
     cor = (255,0,0)
     dimensao = [90,72]
@@ -46,6 +46,9 @@ while rodando:
                 coordXTabuleiroDireita = coordXTabuleiroDireita+90
                 pygame.time.wait(100)
                 contador +=1
+                if contador == numSorteado:
+                    coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
+                    coordXTabuleiroDireita = coordXTabuleiroDireita-90
             else:
                 direcao = False
                 coordYTabuleiroCima = coordYTabuleiroCima-72
@@ -60,6 +63,9 @@ while rodando:
                 coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
                 coordXTabuleiroDireita = coordXTabuleiroDireita-90
                 contador +=1
+                if contador == numSorteado:
+                    coordXTabuleiroEsquerda = coordXTabuleiroEsquerda+90
+                    coordXTabuleiroDireita = coordXTabuleiroDireita+90
                 pygame.time.wait(100)
             else:
                 direcao = True
@@ -71,8 +77,12 @@ while rodando:
     pygame.display.update()
 
 localiza = True
-retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
-posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
+if contador %10 == 0:
+    retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima+50,90,72)
+    posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima+50)
+else:
+    retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
+    posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
 while localiza:
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
