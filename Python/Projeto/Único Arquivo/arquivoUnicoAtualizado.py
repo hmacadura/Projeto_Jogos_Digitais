@@ -578,7 +578,7 @@ while (selecionar):
         pygame.display.update()
 print(troca)
 
-screen.fill(black)
+screen.fill(red)
 
 #-------------Mugshot-------------
 clock.tick(3)
@@ -590,13 +590,21 @@ for event in pygame.event.get():
 
 #Compara a variavel troca para saber qual a escolha do usuario
 if troca == 1:
+        font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 32) 
         print("HERÓI")
         screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-        mensagem="TESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTETESTE"
-        cor = blue
+        mensagem = "Olá meu nome é Arthur, sou o herói do reino.         " +\
+                   "Já derrotei exércitos, monstros e dragões!           "+\
+                   "Quando finalmente retornei de minha jornada em busca da pedra filosofal, ouço comerciantes comentando     sobre os eventos dos últimos dias."+\
+                   "Aparentemente,     um Cavaleiro Negro apareceu em nosso Reino e         destronou nosso sábio Rei Davi."+\
+                   "Existe uma lei milenar em nosso  reino. Caso o Rei não esteja governando corretamente, qualquer pessoa poderá desafiá-lo para o Desafio Matemático."+\
+                   "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
+                   "A cada turno o participante rolará um dado e terá que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova."+\
+                   "O primeiro que chegar a casa 100 terá direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
+        cor = white
         contadorMensagem=0
         tamanhoMsg = len(mensagem)
-        xMensagem=20
+        xMensagem = 20
         yMensagem = 10
         contadorSprite = 0
         while contadorMensagem != tamanhoMsg - 1:
@@ -607,7 +615,8 @@ if troca == 1:
                         if yMensagem < 200:
                                 xMensagem = 20
                         else:
-                                xMensagem =0
+                                xMensagem = -200
+                        
 
 
                         yMensagem = yMensagem+40
@@ -615,7 +624,7 @@ if troca == 1:
                 contadorMensagem = contadorMensagem+1
                 if contadorMensagem == tamanhoMsg:
                         break
-                #time.sleep(0.1)
+                time.sleep(0.05)
                 contadorSprite = contadorSprite + 1
                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
                 if contadorSprite == 3:
