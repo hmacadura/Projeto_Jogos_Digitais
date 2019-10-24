@@ -34,7 +34,12 @@ setaSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoTroca.wav")
 
 selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
 #-------------------------------------------Imagens-----------------------------
-fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicio.png").convert_alpha()
+#fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicio.png").convert_alpha()
+
+#TESTE PRA SABER QUAL TELA ESCOLHER 
+fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicioSemTituloVermelho.png").convert_alpha()
+
+molduraMugshot = pygame.image.load("../../../Sprites/Menu/molduraMugshot.png").convert_alpha()
 
 fundoSalao = pygame.image.load("../../../Sprites/Fundo/fundoSalao.png").convert_alpha()
 
@@ -194,6 +199,11 @@ heightFundoPersonagem = fundoPersonagem.get_height()
 #Personagem Mugshot
 widthPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
 heightPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
+
+#Moldura Mugshot
+widthMolduraMugshot = molduraMugshot.get_width()
+heightMolduraMugshot = molduraMugshot.get_width()
+
 #-------------Definindo Posições-------------
 
 #Fundo
@@ -286,11 +296,15 @@ xBotaoPersonagem = widthScreen/2 - widthBotaoPersonagem/2
 yBotaoPersonagem = heightScreen/2 + heightBotaoPersonagem*1.5
 posBotaoPersonagem = (xBotaoPersonagem,yBotaoPersonagem)
 
-
 #Personagem Geral Mugshot
-xPersonagemMugshot = 10
-yPersonagemMugshot = 10
+xPersonagemMugshot = 15
+yPersonagemMugshot = 15
 posPersonagemMugshot = (xPersonagemMugshot,yPersonagemMugshot)
+
+#Moldura Mugshot
+xMolduraMugshot = xPersonagemMugshot - 15
+yMolduraMugshot = yPersonagemMugshot - 15
+posMolduraMugshot = (xMolduraMugshot,yMolduraMugshot)
 
 clock = pygame.time.Clock()
 
@@ -578,7 +592,7 @@ while (selecionar):
         pygame.display.update()
 print(troca)
 
-screen.fill(red)
+screen.fill(blue)
 
 #-------------Mugshot-------------
 clock.tick(3)
@@ -597,12 +611,13 @@ if troca == 1:
                    "Já derrotei exércitos, monstros e dragões!           "+\
                    "Quando finalmente retornei de minha jornada em busca da pedra filosofal, ouço comerciantes comentando     sobre os eventos dos últimos dias."+\
                    "Aparentemente,     um Cavaleiro Negro apareceu em nosso Reino e         destronou nosso sábio Rei Davi."+\
-                   "Existe uma lei milenar em nosso  reino. Caso o Rei não esteja governando corretamente, qualquer pessoa poderá desafiá-lo para o Desafio Matemático."+\
-                   "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
+                   "Existe uma lei milenar em nosso  reino. Caso o Rei não esteja governando corretamente, qualquer  pessoa poderá desafiá-lo para o Desafio Matemático."+\
+                   "Uma corrida  em turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
                    "A cada turno o participante rolará um dado e terá que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova."+\
                    "O primeiro que chegar a casa 100 terá direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
+#ARRUMAR O XMENSAGEM PRA 35 
         cor = white
-        contadorMensagem=0
+        contadorMensagem = 0
         tamanhoMsg = len(mensagem)
         xMensagem = 20
         yMensagem = 10
@@ -611,8 +626,8 @@ if troca == 1:
                 texto = font.render(mensagem[contadorMensagem], True, cor)
                 screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
                 xMensagem = xMensagem + 20
-                if xMensagem == 1280-widthPersonagemMugshot:
-                        if yMensagem < 200:
+                if xMensagem == 1280 - widthPersonagemMugshot:
+                        if yMensagem < 150:
                                 xMensagem = 20
                         else:
                                 xMensagem = -200
@@ -624,9 +639,10 @@ if troca == 1:
                 contadorMensagem = contadorMensagem+1
                 if contadorMensagem == tamanhoMsg:
                         break
-                time.sleep(0.05)
+                #time.sleep(0.05)
                 contadorSprite = contadorSprite + 1
                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
+                screen.blit(molduraMugshot, posMolduraMugshot)
                 if contadorSprite == 3:
                         sprite_index = (sprite_index + 1) % 2
                         contadorSprite = 0
