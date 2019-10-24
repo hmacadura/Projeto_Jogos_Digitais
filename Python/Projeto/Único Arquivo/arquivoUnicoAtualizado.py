@@ -37,7 +37,7 @@ selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
 #fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicio.png").convert_alpha()
 
 #TESTE PRA SABER QUAL TELA ESCOLHER 
-fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicioSemTituloVermelho.png").convert_alpha()
+fundoTelaInicio = pygame.image.load("../../../Sprites/Fundo/telaInicioComTituloVermelho.png").convert_alpha()
 
 molduraMugshot = pygame.image.load("../../../Sprites/Menu/molduraMugshot.png").convert_alpha()
 
@@ -54,6 +54,8 @@ botaoIniciar = pygame.image.load("../../../Sprites/Menu/botaoIniciar.png").conve
 botaoOpcoes = pygame.image.load("../../../Sprites/Menu/botaoOpcoes.png").convert_alpha()
 
 botaoInstrucoes = pygame.image.load("../../../Sprites/Menu/botaoInstrucoes.png").convert_alpha()
+
+botaoTentarNovamente = pygame.image.load("../../../Sprites/Menu/botaoTentarNovamente.png").convert_alpha()
 
 botaoVoltar = pygame.image.load("../../../Sprites/Menu/botaoVoltar.png").convert_alpha()
 
@@ -607,19 +609,19 @@ if troca == 1:
         font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 32) 
         print("HERÓI")
         screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-        mensagem = "Olá meu nome é Arthur, sou o herói do reino.         " +\
-                   "Já derrotei exércitos, monstros e dragões!           "+\
-                   "Quando finalmente retornei de minha jornada em busca da pedra filosofal, ouço comerciantes comentando     sobre os eventos dos últimos dias."+\
-                   "Aparentemente,     um Cavaleiro Negro apareceu em nosso Reino e         destronou nosso sábio Rei Davi."+\
-                   "Existe uma lei milenar em nosso  reino. Caso o Rei não esteja governando corretamente, qualquer  pessoa poderá desafiá-lo para o Desafio Matemático."+\
-                   "Uma corrida  em turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
-                   "A cada turno o participante rolará um dado e terá que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova."+\
-                   "O primeiro que chegar a casa 100 terá direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
+        mensagem = "Olá meu nome é Arthur, sou o herói do reino.        " +\
+                   "Já derrotei exércitos, monstros e dragões!"+\
+                   "Quando    finalmente retornei de minha jornada em busca da    pedra filosofal, ouço comerciantes comentando sobre os eventos dos últimos dias."+\
+                   "Aparentemente, um       Cavaleiro Negro apareceu em nosso Reino e destronou nosso sábio Rei Davi."+\
+                   "Existe uma lei milenar em nosso  reino.    Caso o Rei não esteja governando corretamente, qualquer  pessoa poderá desafiá-lo para o Desafio Matemático."+\
+                   "Uma corrida  em     turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
+                   "   A cada turno o participante rolará um dado e terá que fazer a   soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova."+\
+                   "O primeiro que chegar a casa 100 terá    direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
 #ARRUMAR O XMENSAGEM PRA 35 
         cor = white
         contadorMensagem = 0
         tamanhoMsg = len(mensagem)
-        xMensagem = 20
+        xMensagem = 40
         yMensagem = 10
         contadorSprite = 0
         while contadorMensagem != tamanhoMsg - 1:
@@ -627,14 +629,11 @@ if troca == 1:
                 screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
                 xMensagem = xMensagem + 20
                 if xMensagem == 1280 - widthPersonagemMugshot:
-                        if yMensagem < 150:
-                                xMensagem = 20
+                        if yMensagem < 180:
+                                xMensagem = 40
                         else:
                                 xMensagem = -200
-                        
-
-
-                        yMensagem = yMensagem+40
+                        yMensagem = yMensagem+37
                         
                 contadorMensagem = contadorMensagem+1
                 if contadorMensagem == tamanhoMsg:
