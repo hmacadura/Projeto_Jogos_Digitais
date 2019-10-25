@@ -27,6 +27,7 @@ sprite_index = 0
 
 #-------------Carregando imagens e sons Para Seleção de Personagens-------------
 
+
 #-------------------------------------------SONS--------------------------------
 telaSom = pygame.mixer.Sound("../../../Sounds/temaZelda.wav")
 
@@ -594,7 +595,7 @@ while (selecionar):
         pygame.display.update()
 print(troca)
 
-screen.fill(blue)
+screen.fill(black)
 
 #-------------Mugshot-------------
 clock.tick(3)
@@ -603,10 +604,10 @@ for event in pygame.event.get():
                 running = False
                 pygame.quit()
                 sys.exit()
-
+#Importanto a fonte
+font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 28) 
 #Compara a variavel troca para saber qual a escolha do usuario
 if troca == 1:
-        font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 32) 
         print("HERÓI")
         screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
         mensagem = "Olá meu nome é Arthur, sou o herói do reino.        " +\
@@ -617,7 +618,52 @@ if troca == 1:
                    "Uma corrida  em     turnos, que se passa pela caverna do Bruxo Sebastian o Justo."+\
                    "   A cada turno o participante rolará um dado e terá que fazer a   soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova."+\
                    "O primeiro que chegar a casa 100 terá    direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
-#ARRUMAR O XMENSAGEM PRA 35 
+        cor = white
+        contadorMensagem = 0
+        tamanhoMsg = len(mensagem)
+        xMensagem = 40
+        yMensagem = 10
+        contadorSprite = 0
+        while contadorMensagem != tamanhoMsg - 1:
+                texto = font.render(mensagem[contadorMensagem], True, cor)
+                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                xMensagem = xMensagem + 20
+                if xMensagem == 1280 - widthPersonagemMugshot:
+                        if yMensagem < 180:
+                                xMensagem = 40
+                        else:
+                                xMensagem = -200
+                        yMensagem = yMensagem+37
+                        
+                contadorMensagem = contadorMensagem+1
+                if contadorMensagem == tamanhoMsg:
+                        break
+                time.sleep(0.05)
+                contadorSprite = contadorSprite + 1
+                screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
+                screen.blit(molduraMugshot, posMolduraMugshot)
+                if contadorSprite == 3:
+                        sprite_index = (sprite_index + 1) % 2
+                        contadorSprite = 0
+                pygame.display.update()
+
+elif troca == 2:
+        print("Cavaleiro")      
+        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+        mensagem = "Olá meu nome é Valentin, sou o cavaleiro chefe da guarda real." +\
+                   "Sirvo vossa majestade o Rei Davi desde que ele era príncipe." +\
+                   "Ontem um viajante chegou ao reino em busca de conselhos reais." +\
+                   "Como vossa majestade auxilia todos no reino, agendou um tempo para falar com esse viajante." +\
+                   "Eu estava almoçando quando ouvi os gritos e vi as pessoas correndo do palácio." +\
+                   "O Rei Davi tinha sido destronado e o viajante se apresentou ao Reino como o Cavaleiro Negro o Novo Rei." +\
+                   "Ele prendeu o Rei Davi e o resto dos meus soldados na prisão real!" +\
+                   "Mas descobri um jeito de salvá-lo! Existe uma lei milenar em nosso reino." +\
+                   "Caso o Rei não esteja governando corretamente, qualquer pessoa poderá desafiá-lo para o Desafio Matemático." +\
+                   "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
+                   "A cada turno o participante rolará um dado e terá que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
+                   "O primeiro que chegar a casa 100 terá direito ao trono! Preciso ajudá-lo, EM NOME DO REI!"
+
+        
         cor = white
         contadorMensagem = 0
         tamanhoMsg = len(mensagem)
@@ -640,30 +686,114 @@ if troca == 1:
                         break
                 #time.sleep(0.05)
                 contadorSprite = contadorSprite + 1
-                screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
+                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
                 screen.blit(molduraMugshot, posMolduraMugshot)
                 if contadorSprite == 3:
                         sprite_index = (sprite_index + 1) % 2
                         contadorSprite = 0
                 pygame.display.update()
 
-elif troca == 2:
-        print("Cavaleiro")      
-        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
-
 elif troca == 3:
         print("Feiticeira")
         screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+        mensagem =        
+        cor = white
+        contadorMensagem = 0
+        tamanhoMsg = len(mensagem)
+        xMensagem = 40
+        yMensagem = 10
+        contadorSprite = 0
+        while contadorMensagem != tamanhoMsg - 1:
+                texto = font.render(mensagem[contadorMensagem], True, cor)
+                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                xMensagem = xMensagem + 20
+                if xMensagem == 1280 - widthPersonagemMugshot:
+                        if yMensagem < 180:
+                                xMensagem = 40
+                        else:
+                                xMensagem = -200
+                        yMensagem = yMensagem+37
+                        
+                contadorMensagem = contadorMensagem+1
+                if contadorMensagem == tamanhoMsg:
+                        break
+                #time.sleep(0.05)
+                contadorSprite = contadorSprite + 1
+                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+                screen.blit(molduraMugshot, posMolduraMugshot)
+                if contadorSprite == 3:
+                        sprite_index = (sprite_index + 1) % 2
+                        contadorSprite = 0
+                pygame.display.update()
 
 elif troca == 4:
         print("Mago")
         screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
+        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+        mensagem =        
+        cor = white
+        contadorMensagem = 0
+        tamanhoMsg = len(mensagem)
+        xMensagem = 40
+        yMensagem = 10
+        contadorSprite = 0
+        while contadorMensagem != tamanhoMsg - 1:
+                texto = font.render(mensagem[contadorMensagem], True, cor)
+                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                xMensagem = xMensagem + 20
+                if xMensagem == 1280 - widthPersonagemMugshot:
+                        if yMensagem < 180:
+                                xMensagem = 40
+                        else:
+                                xMensagem = -200
+                        yMensagem = yMensagem+37
+                        
+                contadorMensagem = contadorMensagem+1
+                if contadorMensagem == tamanhoMsg:
+                        break
+                #time.sleep(0.05)
+                contadorSprite = contadorSprite + 1
+                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+                screen.blit(molduraMugshot, posMolduraMugshot)
+                if contadorSprite == 3:
+                        sprite_index = (sprite_index + 1) % 2
+                        contadorSprite = 0
+                pygame.display.update()
 
 
 elif troca == 5:
         print("Princesa")
         screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
-
+        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+        mensagem =        
+        cor = white
+        contadorMensagem = 0
+        tamanhoMsg = len(mensagem)
+        xMensagem = 40
+        yMensagem = 10
+        contadorSprite = 0
+        while contadorMensagem != tamanhoMsg - 1:
+                texto = font.render(mensagem[contadorMensagem], True, cor)
+                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                xMensagem = xMensagem + 20
+                if xMensagem == 1280 - widthPersonagemMugshot:
+                        if yMensagem < 180:
+                                xMensagem = 40
+                        else:
+                                xMensagem = -200
+                        yMensagem = yMensagem+37
+                        
+                contadorMensagem = contadorMensagem+1
+                if contadorMensagem == tamanhoMsg:
+                        break
+                #time.sleep(0.05)
+                contadorSprite = contadorSprite + 1
+                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+                screen.blit(molduraMugshot, posMolduraMugshot)
+                if contadorSprite == 3:
+                        sprite_index = (sprite_index + 1) % 2
+                        contadorSprite = 0
+                pygame.display.update()
 
 sprite_index = (sprite_index + 1) % 2
 pygame.display.update()
