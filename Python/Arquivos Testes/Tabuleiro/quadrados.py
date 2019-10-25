@@ -3,7 +3,7 @@ from pygame import draw
 from pygame.locals import *
 from random import randint
 from sys import exit 
-
+####
 pygame.init()
 
 screen = pygame.display.set_mode((1280,720))
