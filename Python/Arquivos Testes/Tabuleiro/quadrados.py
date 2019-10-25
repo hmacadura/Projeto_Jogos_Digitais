@@ -30,22 +30,22 @@ contador = 0
 numSorteado = randint(1,7)
 contadorErros = 0
 localiza = True
+coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
 while rodando:
     cor = (255,0,0)
     dimensao = [90,72]
-    coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
     if direcao:
         if contador != numSorteado:
             if coordXTabuleiroEsquerda != 810 :
                 coordXTabuleiroEsquerda = coordXTabuleiroEsquerda+90
+                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 pygame.time.wait(100)
                 contador +=1
-                if contador == numSorteado:
-                    coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
             else:
                 direcao = False
                 coordYTabuleiroCima = coordYTabuleiroCima-72
+                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 contador +=1
                 pygame.time.wait(100)
@@ -54,14 +54,14 @@ while rodando:
         if contador != numSorteado:
             if coordXTabuleiroEsquerda != 0:
                 coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
+                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 contador +=1
-                if contador == numSorteado:
-                    coordXTabuleiroEsquerda = coordXTabuleiroEsquerda+90
                 pygame.time.wait(100)
             else:
                 direcao = True
                 coordYTabuleiroCima = coordYTabuleiroCima-72
+                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 pygame.time.wait(100)
                 contador +=1
@@ -79,7 +79,7 @@ while rodando:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     posMouse = event.pos       
                     if contador == numSorteado:
-                        print (contadorErros)
+                        print (retangulo)
                         print (posMouse)
                         print (posicao)
                         if clicouTabuleiro(posMouse,retangulo,posicao ):
