@@ -52,7 +52,7 @@ while rodando:
     else:
         print ("Entrou else")
         if contador != numSorteado:
-            if coordXTabuleiroEsquerda != 0:
+                if coordXTabuleiroEsquerda != 0:
                 coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
                 coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
@@ -65,12 +65,8 @@ while rodando:
                 pygame.draw.rect(screen,cor,Rect(coord,dimensao))
                 pygame.time.wait(100)
                 contador +=1
-    if contador %10 == 0:
-        retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima+50,90,72)
-        posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima+50)
-    else:
-        retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
-        posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
+    retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
+    posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
     pygame.display.update()
     localiza = True
     if contador == numSorteado:
