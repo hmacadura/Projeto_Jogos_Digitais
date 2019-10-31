@@ -673,18 +673,13 @@ def telaMugshot(ValorSom,troca):
                                                 sprite_index = (sprite_index + 1) % 2
                                                 contadorSprite = 0
                                         pygame.display.update()
-
-                                        if event.type == pygame.MOUSEBUTTONDOWN:
-                                                posMouse = event.pos
-
-                                                if clicou(posMouse,fundoTelaInicio, posFundo):
-                                                        print("Saindo da Tela Mugshot:")
-                                                        selectSom.play()
-                                                        running = False
-                                                        verHistoria = False
-                                                        telaJogo(escolhaSom,troca)
-                                                        return troca and escolhaSom
-                                                        pygame.display.update()
+                                print("Saindo da Tela Mugshot:")
+                                selectSom.play()
+                                running = False
+                                verHistoria = False
+                                telaJogo(escolhaSom,troca)
+                                return troca and escolhaSom
+                                pygame.display.update()
 
         if troca == 2:
                 #Importanto a fonte
