@@ -8,7 +8,7 @@ pygame.init()
 screen = pygame.display.set_mode( (800,600))
 background_color = (255, 255, 255)
 
-fundo = pygame.image.load("../../../Sprites/Fundo/marmore.png").convert_alpha()
+fundo = pygame.image.load("../../../Sprites/Fundo/fundoCaverna.png").convert_alpha()
 
 botaoDado = pygame.image.load("../../../Sprites/Menu/botaoDado.png").convert_alpha()
 
@@ -44,6 +44,23 @@ screen.blit(fundo,(0,0))
 screen.blit(botaoDado ,posBotaoDado)
 print(numeroDado)
 
+def blit_rotate_dado(screen, dadoSprites, posDado, dadoSom, tempo):
+	dadoSom.play()
+
+	count = tempo
+	dadoIndice = 0
+	while count > 0:
+		screen.fill(background_color)
+		screen.blit(botaoDado ,posBotaoDado)
+		screen.blit(dadoSprites[dadoIndice], posDado)
+		pygame.display.update()
+
+		dadoIndice = (dadoIndice + 1) % len(dadoSprites)
+		count -=1 
+		clock.tick(30)
+		print('shuffing dice')
+	return
+
 
 running = True
 while (running):
@@ -58,9 +75,11 @@ while (running):
                         
                                                 
                         if xMouse >= 0 and xMouse <= widthBotaoDado and yMouse >=100 and yMouse <= 100 + heightBotaoDado:
+
                                 print('Clicou no Botão do dado')
-                                dadoSom.play()
-                                pygame.time.wait(2200)
+                                #dadoSom.play()
+                                #pygame.time.wait(2200)
+                                blit_rotate_dado(screen, dadoSprites, posDado, dadoSom, 80)
                                 
                                 if numeroDado == 0:
                                         numeroDado = random.randint(1, 6)
