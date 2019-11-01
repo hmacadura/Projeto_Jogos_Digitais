@@ -633,7 +633,7 @@ def telaMugshot(ValorSom,troca):
                 #Compara a variavel troca para saber qual a escolha do usuario
                         if troca == 1:
                                 #Importanto a fonte
-                                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 32) 
+                                font = pygame.font.Font('../../../Fonte/cour.ttf', 32) 
                                 print("HERÓI")
                                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
                                 mensagem = "Olá meu nome é Arthur, sou o herói do reino.        " +\
