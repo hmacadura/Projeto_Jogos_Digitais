@@ -86,6 +86,13 @@ botaoPrincesa = pygame.image.load("../../../Sprites/Menu/botaoPrincesa.png").con
 
 fundoPersonagem = pygame.image.load("../../../Sprites/Menu/fundoSelecao.png").convert_alpha()
 
+podium = pygame.image.load("../../../Sprites/Menu/podium720.png").convert_alpha()
+
+cavaleiroNegroVitoria = pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombraGanhou.png").convert_alpha()
+
+cavaleiroNegroDerrota = pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombra11.png").convert_alpha()
+
+#-----------SELEÇÃO-------------------------
 heroiSpritesMenu = []
 for countMenu in range (1,3):
         heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Herói/Imagens Normais/Heroi" + str(countMenu) + ".png").convert_alpha())
@@ -126,7 +133,6 @@ for countMenu in range (1,3):
 princesaSpritesMugshot = []
 for countMenu in range (1,3):
         princesaSpritesMugshot.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Mugshot/Princesa" + str(countMenu) + ".png").convert_alpha())
-
 
 #-------------Funcoes-------------
 def clicou (posMouse, Superficie, PosSuperficie):
@@ -197,6 +203,10 @@ heightBotaoComSom = botaoComSom.get_height()
 widthBotaoSemSom = botaoSemSom.get_width()
 heightBotaoSemSom = botaoSemSom.get_height()
 
+#Botão Tentar Novamente
+widthBotaoTentarNovamente = botaoTentarNovamente.get_width()
+heightBotaoTentarNovamente = botaoTentarNovamente.get_height()
+
 #Ícone Som
 widthIconeSom = iconeComSom.get_width()
 heightIconeSom = iconeComSom.get_height()
@@ -207,11 +217,23 @@ heightFundoPersonagem = fundoPersonagem.get_height()
 
 #Personagem Mugshot
 widthPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
-heightPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_width()
+heightPersonagemMugshot = heroiSpritesMugshot[sprite_index].get_height()
 
 #Moldura Mugshot
 widthMolduraMugshot = molduraMugshot.get_width()
-heightMolduraMugshot = molduraMugshot.get_width()
+heightMolduraMugshot = molduraMugshot.get_height()
+
+#Cavleiro Negro Vitoria
+widthCavaleiroNegroVitoria = cavaleiroNegroVitoria.get_width()
+heightCavaleiroNegroVitoria = cavaleiroNegroVitoria.get_height()
+
+#Cavleiro Negro Derrota
+widthCavaleiroNegroDerrota = cavaleiroNegroDerrota.get_width()
+heightCavaleiroNegroDerrota = cavaleiroNegroDerrota.get_height()
+
+#Podium
+widthPodium = podium.get_width()
+heightPodium = podium.get_height()
 
 #-------------Definindo Posições-------------
 
@@ -219,6 +241,21 @@ heightMolduraMugshot = molduraMugshot.get_width()
 xFundo = 0
 yFundo = 0
 posFundo = (xFundo,yFundo)
+
+#Podium
+xPodium = widthScreen/2 - widthPodium/2
+yPodium = heightScreen/2 - heightPodium/2.25
+posPodium = (xPodium,yPodium)
+
+#Cavleiro Negro Vitoria
+xCavaleiroNegroVitoria = widthScreen/2 - widthCavaleiroNegroVitoria/2
+yCavaleiroNegroVitoria = heightScreen/2 - heightCavaleiroNegroVitoria/1.2
+posCavaleiroNegroVitoria = (xCavaleiroNegroVitoria,yCavaleiroNegroVitoria)
+
+#Cavleiro Negro Derrota
+xCavaleiroNegroDerrota = widthScreen/2 - widthCavaleiroNegroDerrota*1.6
+yCavaleiroNegroDerrota = heightScreen/2 - heightCavaleiroNegroDerrota/1.75
+posCavaleiroNegroDerrota = (xCavaleiroNegroDerrota,yCavaleiroNegroDerrota)
 
 #Seta Esquerda
 xEsq = 0
@@ -244,6 +281,11 @@ posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 xBotaoVoltar = widthScreen/2 - widthBotaoVoltar/2
 yBotaoVoltar = 3*heightScreen/4 - heightBotaoVoltar/2
 posBotaoVoltar = (xBotaoVoltar,yBotaoVoltar)
+
+#Botão TentarNovamente
+xBotaoTentarNovamente = widthScreen/2 - widthBotaoTentarNovamente/2
+yBotaoTentarNovamente = heightScreen/2 + heightBotaoTentarNovamente*1.75
+posBotaoTentarNovamente = (xBotaoTentarNovamente,yBotaoTentarNovamente)
 
 #Botão Iniciar
 xBotaoIniciar = widthScreen/2 - widthBotaoIniciar/2 
@@ -350,6 +392,8 @@ verHistoria = False
 #Variavel para parar o Jogo
 jogo = True
 
+#Variavel para saber o resultado
+resultado = True
 
 #Funções
 #-------------Tela jogo-------------
@@ -493,7 +537,7 @@ def telaInstrucao(ValorSom):
                                                 selectSom.play()
                                         return escolhaSom
                 screen.fill(white)
-                screen.blit(botaoVoltar,(xBotaoVoltar,500))                             
+                screen.blit(botaoVoltar,posBotaoVoltar)                             
                    
                 pygame.display.update()
 
@@ -947,16 +991,64 @@ def telaMugshot(ValorSom,troca):
         pygame.display.update()
 
 
+while True:
+        clock.tick(60)
+        if resultado == False:
+                
+                for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                                verInicio = False
+                                pygame.quit()
+                                sys.exit()
+                                                       
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                posMouse = event.pos
+                                
+                                if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
+                                        print("Voltando pro menu:")
+                                        
+                screen.blit(fundoDerrota,posFundo)                             
+                screen.blit(podium,posPodium)
+                screen.blit(cavaleiroNegroVitoria,posCavaleiroNegroVitoria)
+                #COLOCAR O HERÓI
+                screen.blit(botaoTentarNovamente,posBotaoTentarNovamente)                             
+                   
+                pygame.display.update()
+                
+        elif resultado == True:
+                
+                for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                                verInicio = False
+                                pygame.quit()
+                                sys.exit()
+                                                       
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                posMouse = event.pos
+                                
+                                if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
+                                        print("Voltando pro menu:")
+                                        
+                screen.blit(fundoVitoria,posFundo)                             
+                screen.blit(podium,posPodium)
+                screen.blit(cavaleiroNegroDerrota,posCavaleiroNegroDerrota)
+                #COLOCAR O HERÓI
+                screen.blit(botaoTentarNovamente,posBotaoTentarNovamente)                             
+                   
+                pygame.display.update()
+
+
+'''
 telaInicio()
 escolhaSom = telaMenu(escolhaSom)
 pygame.quit()
 
 
         
-'''while True:
+while True:
         if verInicio == True:
                 telaInicio()
-                escolhaSom = telaMenu(escolhaSom)'''
+                escolhaSom = telaMenu(escolhaSom)
                 
 
                         
@@ -970,7 +1062,7 @@ pygame.quit()
               
 
 
-'''
+
 #-------------PARA O PROGRAMA-------------
 while (running):
         for event in pygame.event.get():
