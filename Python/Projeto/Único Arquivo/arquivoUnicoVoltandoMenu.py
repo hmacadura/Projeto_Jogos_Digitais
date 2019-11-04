@@ -395,6 +395,8 @@ jogo = True
 #Variavel para saber o resultado
 resultado = True
 
+condicao = 0
+
 #Funções
 #-------------Tela jogo-------------
 def telaJogo(ValorSom,troca):
@@ -616,7 +618,7 @@ def telaSeleciona(ValorSom):
                                                 pygame.mixer.pause()
                                                 selectSom.play()
                                         screen.fill(black)
-                                        telaMugshot(escolhaSom,troca)
+                                        telaMugshot(escolhaSom,troca,condicao)
                                         return troca and escolhaSom
 
                                         
@@ -661,7 +663,7 @@ def telaSeleciona(ValorSom):
         
 
 
-def telaMugshot(ValorSom,troca):
+def telaMugshot(ValorSom,troca, condicao):
         escolhaSom = ValorSom
         #Variavel que Percorrerá o Array das Sprites
         sprite_index = 0
@@ -680,15 +682,77 @@ def telaMugshot(ValorSom,troca):
                                 font = pygame.font.Font('../../../Fonte/cour.ttf', 32) 
                                 print("HERÓI")
                                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
-                                mensagem = "Olá meu nome é Arthur, sou o herói do reino.        " +\
-                                           "Já derrotei exércitos, monstros e dragões!"+\
-                                           "Quando    finalmente retornei de minha jornada em busca da    pedra filosofal, ouço comerciantes comentando sobre os eventos dos últimos dias." +\
-                                           "Aparentemente, um       Cavaleiro Negro apareceu em nosso Reino e destronou nosso sábio Rei Davi." +\
-                                           "Existe uma lei milenar em nosso  reino.    Caso o Rei não esteja governando corretamente, qualquer  pessoa poderá desafiá-lo para o Desafio Matemático." +\
-                                           "Uma corrida  em     turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
-                                           "   A cada turno o participante rolará um dado e terá que fazer a   soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
-                                           "O primeiro que chegar a casa 100 terá    direito ao trono! Preciso ajudá-lo, EM NOME DO REI! " +\
-                                           "                                CLIQUE PARA CONTINUAR! "
+                                if condicao ==0:
+                                        condicao = condicao + 1
+                                        print (condicao)
+                                        mensagem = "Olá meu nome é Arthur, sou o herói do reino.        " +\
+                                                   "Já derrotei exércitos, monstros e dragões!"+\
+                                                   "Quando    finalmente retornei de minha jornada em busca da    pedra filosofal, ouço comerciantes comentando sobre os eventos dos últimos dias." +\
+                                                   "Aparentemente, um       Cavaleiro Negro apareceu em nosso Reino e destronou nosso sábio Rei Davi." +\
+                                                   "Existe uma lei milenar em nosso  reino.    Caso o Rei não esteja governando corretamente, qualquer  pessoa poderá desafiá-lo para o Desafio Matemático." +\
+                                                   "Uma corrida  em     turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
+                                                   "   A cada turno o participante rolará um dado e terá que fazer a   soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
+                                                   "O primeiro que chegar a casa 100 terá    direito ao trono! Preciso ajudá-lo, EM NOME DO REI! " +\
+                                                   "                                CLIQUE PARA CONTINUAR! "
+                                        
+                                        cor = white
+                                        contadorMensagem = 0
+                                        tamanhoMsg = len(mensagem)
+                                        xMensagem = 40
+                                        yMensagem = 10
+                                        contadorSprite = 0
+                                        while contadorMensagem != tamanhoMsg - 1:     
+                                                texto = font.render(mensagem[contadorMensagem], True, cor)
+                                                screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                                xMensagem = xMensagem + 20
+                                                if xMensagem == 1280 - widthPersonagemMugshot:
+                                                        if yMensagem < 180:
+                                                                xMensagem = 40
+                                                        else:
+                                                                xMensagem = -200
+                                                        yMensagem = yMensagem+37
+                                                        
+                                                contadorMensagem = contadorMensagem+1
+                                                if contadorMensagem == tamanhoMsg:
+                                                        break
+                                                time.sleep(0.02)
+                                                contadorSprite = contadorSprite + 1
+                                                screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
+                                                screen.blit(molduraMugshot, posMolduraMugshot)
+                                                if contadorSprite == 3:
+                                                        sprite_index = (sprite_index + 1) % 2
+                                                        contadorSprite = 0
+                                                pygame.display.update()
+                                if event.type == pygame.MOUSEBUTTONDOWN:
+                                        posMouse = event.pos
+
+                                        if clicou(posMouse,fundoTelaInicio, posFundo):
+                                                print("Saindo da Tela Mugshot:")
+                                                selectSom.play()
+                                                running = False
+                                                verHistoria = False
+                                                telaJogo(escolhaSom,troca)
+                                                return troca and escolhaSom
+                                                pygame.display.update()
+
+                        elif troca == 2:
+                                #Importanto a fonte
+                                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
+                                print("Cavaleiro")      
+                                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "Olá meu nome é Valentin, sou o cavaleiro chefe da   guarda real." +\
+                                           "Sirvo vossa majestade o Rei Davi desde  que ele era príncipe." +\
+                                           "Ontem um viajante chegou ao    reino em busca de conselhos reais." +\
+                                           "Como vossa        majestade auxilia todos no reino, agendou um tempo  para falar com esse viajante." +\
+                                           "Eu estava almoçando    quando ouvi os gritos e vi as pessoas correndo do palácio." +\
+                                           "O Rei Davi tinha sido destronado e o viajante se apresentou ao Reino  como o Cavaleiro Negro o Novo Rei." +\
+                                           "Ele prendeu o Rei Davi e o    resto dos meus soldados na prisão real!" +\
+                                           "Mas descobri um jeito de salvá-lo! Existe uma lei milenar em nosso reino. " +\
+                                           "Caso o Rei não esteja governando corretamente, qualquer pessoa poderá          desafiá-lo para o Desafio Matemático." +\
+                                           "Uma corrida em turnos, que se passa pela   caverna do Bruxo Sebastian o Justo. " +\
+                                           "A cada turnoo participante rolará um dado e terá que fazer a soma entre o   número tirado no dado, com a casa que estava, para se deslocar  até a nova. " +\
+                                           "O primeiro que chegar a casa 100 terá direito ao    trono! Preciso ajudá-lo, EM NOME DO REI! " +\
+                                           "                                           CLIQUE PARA CONTINUAR! "
                                 cor = white
                                 contadorMensagem = 0
                                 tamanhoMsg = len(mensagem)
@@ -711,286 +775,227 @@ def telaMugshot(ValorSom,troca):
                                                 break
                                         time.sleep(0.05)
                                         contadorSprite = contadorSprite + 1
-                                        screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
+                                        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                        screen.blit(molduraMugshot, posMolduraMugshot)
+                                        if contadorSprite == 3:
+                                                sprite_index = (sprite_index + 1) % 2
+                                                contadorSprite = 0
+                                        pygame.display.update()
+                                        
+                        elif troca == 3:
+                                #Importanto a fonte
+                                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
+                                print("Feiticeira")
+                                screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "Olá meu nome é Pandora, sou uma Feiticeira." +\
+                                           "Moro     próximo ao grande Reino." +\
+                                           "Minha mãe a Feiticeira      Morgana não foi a melhor pessoa do mundo." +\
+                                           "Pode se    dizer que fomos banidos do Reino pelo Mago Gaspar,  algo sobre minha mãe ter roubando seus pergaminhos  sagrados." +\
+                                           "Minha mãe se foi e ainda não sou aceita lá.Vendo minhas poções de cura e ataque nos portões com diversos   aventureiros." +\
+                                           "É lá onde descubro as novidades da grande          civilização. Foi quando descobri que o Rei Davi tinha sido      destronado e preso." +\
+                                           "Tive então uma ideia, me teleportei para casae revirei os pergaminhos deixados por minha mãe." +\
+                                           "Achei uma cópia das regras do reino.Existe uma lei milenar em nosso reino." +\
+                                           "Caso oRei não esteja governando corretamente, qualquer pessoa poderá  desafiá-lo para o Desafio Matemático." +\
+                                           "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
+                                           "A cada turno o participante rolará um dado e terá que fazer a soma entre o     número tirado no dado, com a casa que estava, para se deslocar  até a nova. "
+                                cor = white
+                                contadorMensagem = 0
+                                tamanhoMsg = len(mensagem)
+                                xMensagem = 40
+                                yMensagem = 10
+                                contadorSprite = 0
+                                while contadorMensagem != tamanhoMsg - 1:
+                                        texto = font.render(mensagem[contadorMensagem], True, cor)
+                                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                        xMensagem = xMensagem + 20
+                                        if xMensagem == 1280 - widthPersonagemMugshot:
+                                                if yMensagem < 180:
+                                                        xMensagem = 40
+                                                else:
+                                                        xMensagem = -200
+                                                yMensagem = yMensagem+37
+                                                
+                                        contadorMensagem = contadorMensagem+1
+                                        if contadorMensagem == tamanhoMsg:
+                                                break
+                                        time.sleep(0.05)
+                                        contadorSprite = contadorSprite + 1
+                                        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                        screen.blit(molduraMugshot, posMolduraMugshot)
+                                        if contadorSprite == 3:
+                                                sprite_index = (sprite_index + 1) % 2
+                                                contadorSprite = 0
+                                        pygame.display.update()
+                                pygame.time.wait(2000)
+                                
+                                screen.fill(black)
+                                screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "O primeiro que chegar a casa 100 terá direito ao    trono! Se eu vencer e ajudá-lo, poderei ser aceita  novamente no Reino! " +\
+                                           "Então vamos lá, EM NOME DO REI. " +\
+                                           "            CLIQUE PARA CONTINUAR!"
+                                cor = white
+                                contadorMensagem = 0
+                                tamanhoMsg = len(mensagem)
+                                xMensagem = 40
+                                yMensagem = 10
+                                contadorSprite = 0
+                                while contadorMensagem != tamanhoMsg - 1:
+                                        texto = font.render(mensagem[contadorMensagem], True, cor)
+                                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                        xMensagem = xMensagem + 20
+                                        if xMensagem == 1280 - widthPersonagemMugshot:
+                                                if yMensagem < 180:
+                                                        xMensagem = 40
+                                                else:
+                                                        xMensagem = -200
+                                                yMensagem = yMensagem+37
+                                                
+                                        contadorMensagem = contadorMensagem+1
+                                        if contadorMensagem == tamanhoMsg:
+                                                break
+                                        time.sleep(0.05)
+                                        contadorSprite = contadorSprite + 1
+                                        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
                                         screen.blit(molduraMugshot, posMolduraMugshot)
                                         if contadorSprite == 3:
                                                 sprite_index = (sprite_index + 1) % 2
                                                 contadorSprite = 0
                                         pygame.display.update()
 
-                                        if event.type == pygame.MOUSEBUTTONDOWN:
-                                                posMouse = event.pos
-
-                                                if clicou(posMouse,fundoTelaInicio, posFundo):
-                                                        print("Saindo da Tela Mugshot:")
-                                                        selectSom.play()
-                                                        running = False
-                                                        verHistoria = False
-                                                        telaJogo(escolhaSom,troca)
-                                                        return troca and escolhaSom
-                                                        pygame.display.update()
-
-        if troca == 2:
-                #Importanto a fonte
-                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
-                print("Cavaleiro")      
-                screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "Olá meu nome é Valentin, sou o cavaleiro chefe da   guarda real." +\
-                           "Sirvo vossa majestade o Rei Davi desde  que ele era príncipe." +\
-                           "Ontem um viajante chegou ao    reino em busca de conselhos reais." +\
-                           "Como vossa        majestade auxilia todos no reino, agendou um tempo  para falar com esse viajante." +\
-                           "Eu estava almoçando    quando ouvi os gritos e vi as pessoas correndo do palácio." +\
-                           "O Rei Davi tinha sido destronado e o viajante se apresentou ao Reino  como o Cavaleiro Negro o Novo Rei." +\
-                           "Ele prendeu o Rei Davi e o    resto dos meus soldados na prisão real!" +\
-                           "Mas descobri um jeito de salvá-lo! Existe uma lei milenar em nosso reino. " +\
-                           "Caso o Rei não esteja governando corretamente, qualquer pessoa poderá          desafiá-lo para o Desafio Matemático." +\
-                           "Uma corrida em turnos, que se passa pela   caverna do Bruxo Sebastian o Justo. " +\
-                           "A cada turnoo participante rolará um dado e terá que fazer a soma entre o   número tirado no dado, com a casa que estava, para se deslocar  até a nova. " +\
-                           "O primeiro que chegar a casa 100 terá direito ao    trono! Preciso ajudá-lo, EM NOME DO REI! " +\
-                           "                                           CLIQUE PARA CONTINUAR! "
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
+                        elif troca == 4:
+                                #Importanto a fonte
+                                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
+                                print("Mago")
+                                screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "Olá meu nome é Gaspar, sou o Mago do Reino." +\
+                                           "Meu papelno Reino é criar poções de curas para os hospitais eproteger os pergaminhos sagrados da biblioteca      central." +\
+                                           "Era um dia normal, estava levando as poções para o hospital central, quando senti uma energia   maligna saindo do castelo do Rei Davi." +\
+                                           "Quando estava caminhando até o palácio, encontrei a Princesa Sofia nos degrausda Biblioteca central, ela me explicou o que aconteceu." +\
+                                           "Não pude deixá-la sozinha enquanto esse Cavaleiro Negro se proclamava    Rei." +\
+                                           "Procuramos os antigos livros de leis. Neles descobrimos que existe uma forma! Existe uma lei milenar em nosso reino." +\
+                                           "Caso o  Rei não esteja governando corretamente, qualquer pessoa poderá  desafiá-lo para o Desafio Matemático." +\
+                                           "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
+                                           "A cada turno o participante rolará um dado e terá que fazer a soma entre o     número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
+                                           "O primeiro que chegar a casa 100 terá direito ao      trono! Preciso ajudá-lo, EM NOME DO REI! " +\
+                                           "                                             CLIQUE PARA CONTINUAR! "
+                                cor = white
+                                contadorMensagem = 0
+                                tamanhoMsg = len(mensagem)
+                                xMensagem = 40
+                                yMensagem = 10
                                 contadorSprite = 0
+                                while contadorMensagem != tamanhoMsg - 1:
+                                        texto = font.render(mensagem[contadorMensagem], True, cor)
+                                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                        xMensagem = xMensagem + 20
+                                        if xMensagem == 1280 - widthPersonagemMugshot:
+                                                if yMensagem < 180:
+                                                        xMensagem = 40
+                                                else:
+                                                        xMensagem = -200
+                                                yMensagem = yMensagem+37
+                                                
+                                        contadorMensagem = contadorMensagem+1
+                                        if contadorMensagem == tamanhoMsg:
+                                                break
+                                        time.sleep(0.05)
+                                        contadorSprite = contadorSprite + 1
+                                        screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                        screen.blit(molduraMugshot, posMolduraMugshot)
+                                        if contadorSprite == 3:
+                                                sprite_index = (sprite_index + 1) % 2
+                                                contadorSprite = 0
+                                        pygame.display.update()
+
+
+                        elif troca == 5:
+                                #Importanto a fonte
+                                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
+                                print("Princesa")
+                                screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "Olá meu nome é Sofia, sou a Princesa do Reino." +\
+                                           "Meu   pai, o Rei Davi é o homem mais bondoso do Reino,ele sempre ajuda os seus súditos." +\
+                                           "Hoje foi um horrível   dia para meu pai. Teria sido um dia comum, porém    quando foi ajudar o viajante." +\
+                                           "O mesmo, tirou seu     disfarce e se apresentou na sala do trono como o    Cavaleiro Negro,  e disse que caso o Rei não quisesse morrer," +\
+                                           "   teria que renunciar à coroa! Olhei para meu pai e ele fez o     sinal para que eu fugisse com o restante dos súditos." +\
+                                           "O CavaleiroNegro prendeu meu pai na prisão real. Como princesa, não posso  ficar parada!" +\
+                                           "Lendo os antigos livros sobre nossas leis, descobriuma forma de salvá-lo! Existe uma lei milenar em nosso reino." +\
+                                           "   Caso o Rei não esteja governando corretamente, qualquer pessoa  poderá desafiá-lo para o Desafio Matemático." +\
+                                           "Uma corrida em      turnos, que se passa pela caverna do Bruxo Sebastian o Justo. "
+                                
+                                cor = white
+                                contadorMensagem = 0
+                                tamanhoMsg = len(mensagem)
+                                xMensagem = 40
+                                yMensagem = 10
+                                contadorSprite = 0
+                                while contadorMensagem != tamanhoMsg - 1:
+                                        texto = font.render(mensagem[contadorMensagem], True, cor)
+                                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                        xMensagem = xMensagem + 20
+                                        if xMensagem == 1280 - widthPersonagemMugshot:
+                                                if yMensagem < 180:
+                                                        xMensagem = 40
+                                                else:
+                                                        xMensagem = -200
+                                                yMensagem = yMensagem+37
+                                                
+                                        contadorMensagem = contadorMensagem+1
+                                        if contadorMensagem == tamanhoMsg:
+                                                break
+                                        #time.sleep(0.05)
+                                        contadorSprite = contadorSprite + 1
+                                        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                        screen.blit(molduraMugshot, posMolduraMugshot)
+                                        if contadorSprite == 3:
+                                                sprite_index = (sprite_index + 1) % 2
+                                                contadorSprite = 0
+                                        pygame.display.update()
+
+                                pygame.time.wait(2000)
+                                
+                                screen.fill(black)
+                                        
+                                screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                mensagem = "A cada turno o participante rolará um dado e terá   que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
+                                           "     O primeiro que chegar a casa 100 terá direito ao    trono! Preciso ajudá-lo, EM NOME DO REI! " +\
+                                           "                        CLIQUE PARA CONTINUAR!"
+                                cor = white
+                                contadorMensagem = 0
+                                tamanhoMsg = len(mensagem)
+                                xMensagem = 40
+                                yMensagem = 10
+                                contadorSprite = 0
+                                while contadorMensagem != tamanhoMsg - 1:
+                                        texto = font.render(mensagem[contadorMensagem], True, cor)
+                                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
+                                        xMensagem = xMensagem + 20
+                                        if xMensagem == 1280 - widthPersonagemMugshot:
+                                                if yMensagem < 180:
+                                                        xMensagem = 40
+                                                else:
+                                                        xMensagem = -200
+                                                yMensagem = yMensagem+37
+                                                
+                                        contadorMensagem = contadorMensagem+1
+                                        if contadorMensagem == tamanhoMsg:
+                                                break
+                                        #time.sleep(0.05)
+                                        contadorSprite = contadorSprite + 1
+                                        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
+                                        screen.blit(molduraMugshot, posMolduraMugshot)
+                                        if contadorSprite == 3:
+                                                sprite_index = (sprite_index + 1) % 2
+                                                contadorSprite = 0
+                                        pygame.display.update()             
+                                        
+
+                                        #CRIAR UM WHILE TRUE PARA CADA MENSAGEM DANDO RETURN
+                                        
+                        sprite_index = (sprite_index + 1) % 2
                         pygame.display.update()
-                        
-        elif troca == 3:
-                #Importanto a fonte
-                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
-                print("Feiticeira")
-                screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "Olá meu nome é Pandora, sou uma Feiticeira." +\
-                           "Moro     próximo ao grande Reino." +\
-                           "Minha mãe a Feiticeira      Morgana não foi a melhor pessoa do mundo." +\
-                           "Pode se    dizer que fomos banidos do Reino pelo Mago Gaspar,  algo sobre minha mãe ter roubando seus pergaminhos  sagrados." +\
-                           "Minha mãe se foi e ainda não sou aceita lá.Vendo minhas poções de cura e ataque nos portões com diversos   aventureiros." +\
-                           "É lá onde descubro as novidades da grande          civilização. Foi quando descobri que o Rei Davi tinha sido      destronado e preso." +\
-                           "Tive então uma ideia, me teleportei para casae revirei os pergaminhos deixados por minha mãe." +\
-                           "Achei uma cópia das regras do reino.Existe uma lei milenar em nosso reino." +\
-                           "Caso oRei não esteja governando corretamente, qualquer pessoa poderá  desafiá-lo para o Desafio Matemático." +\
-                           "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
-                           "A cada turno o participante rolará um dado e terá que fazer a soma entre o     número tirado no dado, com a casa que estava, para se deslocar  até a nova. "
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
-                                contadorSprite = 0
-                        pygame.display.update()
-                pygame.time.wait(2000)
-                
-                screen.fill(black)
-                screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "O primeiro que chegar a casa 100 terá direito ao    trono! Se eu vencer e ajudá-lo, poderei ser aceita  novamente no Reino! " +\
-                           "Então vamos lá, EM NOME DO REI. " +\
-                           "            CLIQUE PARA CONTINUAR!"
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
-                                contadorSprite = 0
-                        pygame.display.update()
-
-        elif troca == 4:
-                #Importanto a fonte
-                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
-                print("Mago")
-                screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "Olá meu nome é Gaspar, sou o Mago do Reino." +\
-                           "Meu papelno Reino é criar poções de curas para os hospitais eproteger os pergaminhos sagrados da biblioteca      central." +\
-                           "Era um dia normal, estava levando as poções para o hospital central, quando senti uma energia   maligna saindo do castelo do Rei Davi." +\
-                           "Quando estava caminhando até o palácio, encontrei a Princesa Sofia nos degrausda Biblioteca central, ela me explicou o que aconteceu." +\
-                           "Não pude deixá-la sozinha enquanto esse Cavaleiro Negro se proclamava    Rei." +\
-                           "Procuramos os antigos livros de leis. Neles descobrimos que existe uma forma! Existe uma lei milenar em nosso reino." +\
-                           "Caso o  Rei não esteja governando corretamente, qualquer pessoa poderá  desafiá-lo para o Desafio Matemático." +\
-                           "Uma corrida em turnos, que se passa pela caverna do Bruxo Sebastian o Justo." +\
-                           "A cada turno o participante rolará um dado e terá que fazer a soma entre o     número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
-                           "O primeiro que chegar a casa 100 terá direito ao      trono! Preciso ajudá-lo, EM NOME DO REI! " +\
-                           "                                             CLIQUE PARA CONTINUAR! "
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
-                                contadorSprite = 0
-                        pygame.display.update()
-
-
-        elif troca == 5:
-                #Importanto a fonte
-                font = pygame.font.Font('C:\Windows\Fonts\cour.ttf', 25) 
-                print("Princesa")
-                screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "Olá meu nome é Sofia, sou a Princesa do Reino." +\
-                           "Meu   pai, o Rei Davi é o homem mais bondoso do Reino,ele sempre ajuda os seus súditos." +\
-                           "Hoje foi um horrível   dia para meu pai. Teria sido um dia comum, porém    quando foi ajudar o viajante." +\
-                           "O mesmo, tirou seu     disfarce e se apresentou na sala do trono como o    Cavaleiro Negro,  e disse que caso o Rei não quisesse morrer," +\
-                           "   teria que renunciar à coroa! Olhei para meu pai e ele fez o     sinal para que eu fugisse com o restante dos súditos." +\
-                           "O CavaleiroNegro prendeu meu pai na prisão real. Como princesa, não posso  ficar parada!" +\
-                           "Lendo os antigos livros sobre nossas leis, descobriuma forma de salvá-lo! Existe uma lei milenar em nosso reino." +\
-                           "   Caso o Rei não esteja governando corretamente, qualquer pessoa  poderá desafiá-lo para o Desafio Matemático." +\
-                           "Uma corrida em      turnos, que se passa pela caverna do Bruxo Sebastian o Justo. "
-                
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        #time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
-                                contadorSprite = 0
-                        pygame.display.update()
-
-                pygame.time.wait(2000)
-                
-                screen.fill(black)
-                        
-                screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
-                mensagem = "A cada turno o participante rolará um dado e terá   que fazer a soma entre o número tirado no dado, com a casa que estava, para se deslocar até a nova." +\
-                           "     O primeiro que chegar a casa 100 terá direito ao    trono! Preciso ajudá-lo, EM NOME DO REI! " +\
-                           "                        CLIQUE PARA CONTINUAR!"
-                cor = white
-                contadorMensagem = 0
-                tamanhoMsg = len(mensagem)
-                xMensagem = 40
-                yMensagem = 10
-                contadorSprite = 0
-                while contadorMensagem != tamanhoMsg - 1:
-                        texto = font.render(mensagem[contadorMensagem], True, cor)
-                        screen.blit(texto, [widthPersonagemMugshot + xMensagem , yMensagem])
-                        xMensagem = xMensagem + 20
-                        if xMensagem == 1280 - widthPersonagemMugshot:
-                                if yMensagem < 180:
-                                        xMensagem = 40
-                                else:
-                                        xMensagem = -200
-                                yMensagem = yMensagem+37
-                                
-                        contadorMensagem = contadorMensagem+1
-                        if contadorMensagem == tamanhoMsg:
-                                break
-                        #time.sleep(0.05)
-                        contadorSprite = contadorSprite + 1
-                        screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
-                        screen.blit(molduraMugshot, posMolduraMugshot)
-                        if contadorSprite == 3:
-                                sprite_index = (sprite_index + 1) % 2
-                                contadorSprite = 0
-                        pygame.display.update()             
-                        
-
-                        #CRIAR UM WHILE TRUE PARA CADA MENSAGEM DANDO RETURN
-                        
-        sprite_index = (sprite_index + 1) % 2
-        pygame.display.update()
-
-
+'''
+#----------------------TELA FINAL--------------------
 while True:
         clock.tick(60)
         if resultado == False:
@@ -1039,12 +1044,13 @@ while True:
 
 
 '''
+
 telaInicio()
 escolhaSom = telaMenu(escolhaSom)
 pygame.quit()
 
 
-        
+'''      
 while True:
         if verInicio == True:
                 telaInicio()
