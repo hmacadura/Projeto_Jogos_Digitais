@@ -8,8 +8,10 @@ pygame.init()
 
 
 fundoTelaTabuleiro = pygame.image.load("../../../Sprites/Fundo/tabuleiroComSimbolos.png")
-
-
+dado = pygame.image.load("../../../Sprites/Dado/Modelo Branco/dado1.png")
+botaoRodarDado = pygame.image.load("../../../Sprites/Menu/botaoDado.png")
+heroi = pygame.image.load("../../../Sprites/Personagens/Herói/Imagens Normais/Heroi1.png")
+cavaleiroNegro = pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombra1.png")
 
 screen = pygame.display.set_mode((1280,720))
 for event in pygame.event.get():
@@ -28,129 +30,170 @@ def clicouTabuleiro (PosMouse, Superficie, PosSuperficie):
 
 
 direcao = True
-coordXTabuleiroEsquerda = 0
-coordYTabuleiroCima = 648
+direcaoComputador = True
+coordXTabuleiroJogador = 0
+coordYTabuleiroJogador = 648
+coordXTabuleiroComputador = 0
+coordYTabuleiroComputador = 648
 rodando = True
-contador = 1
-numSorteado = 85
-contadorErros = 0
+rodar = False
+contadorJogador = 1
+contadorComputador = 1
+numSorteado = randint(1,7) + 1
+numSorteadoComputador = randint(1,7) + 1
+contadorJogadorErros = 0
 localiza = True
-coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
 posFundo = [0,0]
+dado1 = pygame.transform.scale(dado, (200,200))
+heroiTransformado = pygame.transform.scale(heroi, (50,50))
+cavaleiroNegroTransformado = pygame.transform.scale(cavaleiroNegro, (50,50))
+posDado = [1000,400]
+posBotao = [950,600]
 while rodando:
+    screen.blit(dado1 ,posDado)
+    screen.blit(botaoRodarDado ,posBotao)
     cor = (255,0,0)
     dimensao = [90,72]
-    pygame.draw.rect(screen,cor,Rect(coord,dimensao))
     screen.blit(fundoTelaTabuleiro ,posFundo)
     if direcao:
-        if contador != numSorteado:
-            if coordXTabuleiroEsquerda != 810 :
-                coordXTabuleiroEsquerda = coordXTabuleiroEsquerda+90
-                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+        if contadorJogador != numSorteado:
+            if coordXTabuleiroJogador != 810 :
+                coordXTabuleiroJogador = coordXTabuleiroJogador+90
+                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                contadorJogador +=1
                 pygame.time.wait(100)
-                contador +=1
             else:
                 direcao = False
-                coordYTabuleiroCima = coordYTabuleiroCima-72
-                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-                contador +=1
+                coordYTabuleiroJogador = coordYTabuleiroJogador-72
+                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                contadorJogador +=1
                 pygame.time.wait(100)
     else:
-        if contador != numSorteado:
-            if coordXTabuleiroEsquerda != 0:
-                coordXTabuleiroEsquerda = coordXTabuleiroEsquerda-90
-                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
-                contador +=1
+        if contadorJogador != numSorteado:
+            if coordXTabuleiroJogador != 0:
+                coordXTabuleiroJogador = coordXTabuleiroJogador-90
+                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                contadorJogador +=1
                 pygame.time.wait(100)
             else:
                 direcao = True
-                coordYTabuleiroCima = coordYTabuleiroCima-72
-                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                coordYTabuleiroJogador = coordYTabuleiroJogador-72
+                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                contadorJogador +=1
                 pygame.time.wait(100)
-                contador +=1
-    retangulo = (coordXTabuleiroEsquerda,coordYTabuleiroCima,90,72)
-    posicao =  (coordXTabuleiroEsquerda,coordYTabuleiroCima)
+    retangulo = (coordXTabuleiroJogador,coordYTabuleiroJogador,90,72)
+    posicao =  (coordXTabuleiroJogador,coordYTabuleiroJogador)
+    screen.blit(heroiTransformado, coordJogador)
+    screen.blit(cavaleiroNegroTransformado, coordComputador)
     pygame.display.update()
     localiza = True
-    if contador == numSorteado:
+    if contadorJogador == numSorteado:
         while localiza:
             for event in pygame.event.get():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     posMouse = event.pos       
-                    if contador == numSorteado:
-                        print (retangulo)
-                        print (posMouse)
-                        print (posicao)
+                    if contadorJogador == numSorteado:
                         if clicouTabuleiro(posMouse,retangulo,posicao ):
-                            print("Acertou:")
-                            contadorErros = 0
-                            localiza = False
+                            contadorJogadorErros = 0
                             sorteio = randint(1,7)
                             numSorteado = numSorteado + sorteio
-                            print (contador)
-                            if contador== 4:
-                                coordXTabuleiroEsquerda = 630
-                                coordYTabuleiroCima = 504
-                                contador = 28
+                            print (contadorJogador)
+                            localiza = False
+                            rodar = True
+                            if contadorJogador== 4:
+                                coordXTabuleiroJogador = 630
+                                coordYTabuleiroJogador = 504
+                                contadorJogador = 28
                                 numSorteado = 28
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
-                            elif contador== 37:
-                                coordXTabuleiroEsquerda = 450
-                                coordYTabuleiroCima = 216
-                                contador = 66
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                            elif contadorJogador== 37:
+                                coordXTabuleiroJogador = 450
+                                coordYTabuleiroJogador = 216
+                                contadorJogador = 66
                                 numSorteado = 66
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                 direcao = True
-                            elif contador== 42:
-                                coordXTabuleiroEsquerda = 630
-                                coordYTabuleiroCima = 72
-                                contador = 88
+                            elif contadorJogador== 42:
+                                coordXTabuleiroJogador = 630
+                                coordYTabuleiroJogador = 72
+                                contadorJogador = 88
                                 numSorteado = 88
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                 direcao = True
-                            elif contador== 53:
-                                coordXTabuleiroEsquerda = 360
-                                coordYTabuleiroCima = 576
-                                contador = 16
+                            elif contadorJogador== 53:
+                                coordXTabuleiroJogador = 360
+                                coordYTabuleiroJogador = 576
+                                contadorJogador = 16
                                 numSorteado = 16
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                 direcao = False
                                 pygame.display.update()
-                            elif contador== 63:
-                                coordXTabuleiroEsquerda = 450
-                                coordYTabuleiroCima = 432
-                                contador = 43
+                            elif contadorJogador== 63:
+                                coordXTabuleiroJogador = 450
+                                coordYTabuleiroJogador = 432
+                                contadorJogador = 43
                                 numSorteado = 43
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                 direcao = False
                                 pygame.display.update()
-                            elif contador== 85:
-                                coordXTabuleiroEsquerda = 180
-                                coordYTabuleiroCima = 360
-                                contador = 43
+                            elif contadorJogador== 85:
+                                coordXTabuleiroJogador = 180
+                                coordYTabuleiroJogador = 360
+                                contadorJogador = 43
                                 numSorteado = 43
-                                coord =[coordXTabuleiroEsquerda,coordYTabuleiroCima]
+                                coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                 direcao = True
                                 pygame.display.update()
-                            
-                            
-                            
-                                
                         else:
                             print ("errou")
-                            contadorErros = contadorErros + 1
-                            if contadorErros >=5:
+                            contadorJogadorErros = contadorJogadorErros + 1
+                            if contadorJogadorErros >=5:
                                 cor = (0,255,0)
-                                pygame.draw.rect(screen,cor,Rect(coord,dimensao))
+                                pygame.draw.rect(screen,cor,Rect(coordJogador,dimensao))
                                 pygame.display.update()
-    if contador == 100:
-        print("ganhou")
-        rodando = False
-    pygame.display.update()
+
+                                
+    while rodar:
+        if direcaoComputador:
+            if contadorComputador != numSorteadoComputador:
+                if coordXTabuleiroComputador != 810 :
+                    coordXTabuleiroComputador = coordXTabuleiroComputador+90
+                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                    contadorComputador +=1
+                else:
+                    direcaoComputador = False
+                    coordYTabuleiroComputador = coordYTabuleiroComputador-72
+                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                    contadorComputador +=1
+            else:
+                rodar = False
+                sorteio = randint(1,7)
+                numSorteadoComputador = numSorteadoComputador + sorteio
+        else:
+            if contadorComputador != numSorteadoComputador:
+                if coordXTabuleiroComputador != 0:
+                    coordXTabuleiroComputador = coordXTabuleiroComputador-90
+                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                    contadorComputador +=1
+                else:
+                    direcaoComputador = True
+                    coordYTabuleiroComputador = coordYTabuleiroComputador-72
+                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                    contadorComputador +=1
+            else:
+                rodar = False        
+                sorteio = randint(1,7)
+                numSorteadoComputador = numSorteadoComputador + sorteio
+        if contadorJogador == 100:
+            print("ganhou")
+            rodando = False
+        pygame.display.update()
+        if contadorComputador == 100:
+            print("perdeu")
+            rodando = False
+        pygame.display.update()
 
     
 
