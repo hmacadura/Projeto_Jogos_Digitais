@@ -88,6 +88,8 @@ fundoPersonagem = pygame.image.load("../../../Sprites/Menu/fundoSelecao.png").co
 
 podium = pygame.image.load("../../../Sprites/Menu/podium720.png").convert_alpha()
 
+fundoTelaInstrucao = pygame.image.load("../../../Sprites/Fundo/telaInstrucao.png").convert_alpha()
+
 cavaleiroNegroVitoria = pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombraGanhou.png").convert_alpha()
 
 cavaleiroNegroDerrota = pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombra11.png").convert_alpha()
@@ -279,7 +281,7 @@ posBotaoSelecionar = (xBotaoSelecionar,yBotaoSelecionar)
 
 #Botão Voltar
 xBotaoVoltar = widthScreen/2 - widthBotaoVoltar/2
-yBotaoVoltar = 3*heightScreen/4 - heightBotaoVoltar/2
+yBotaoVoltar = 3*heightScreen/4 + heightBotaoVoltar/3 
 posBotaoVoltar = (xBotaoVoltar,yBotaoVoltar)
 
 #Botão TentarNovamente
@@ -539,6 +541,7 @@ def telaInstrucao(ValorSom):
                                                 selectSom.play()
                                         return escolhaSom
                 screen.fill(white)
+                screen.blit(fundoTelaInstrucao,posFundo)                             
                 screen.blit(botaoVoltar,posBotaoVoltar)                             
                    
                 pygame.display.update()
