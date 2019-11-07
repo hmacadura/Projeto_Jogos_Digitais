@@ -424,6 +424,9 @@ def telaJogo(ValorSom,troca):
                 
 #-------------Tela Início-------------
 def telaInicio():
+                #Loop da música
+        if escolhaSom == 1:
+                zelda.play(-1)
         while True:
                 screen.blit(fundoTelaInicio ,posFundo)
                 clock.tick(60)
@@ -506,12 +509,15 @@ def telaSom(ValorSom):
                                         print("Menu de Som:")                                        
                                         if escolhaSom == 0:
                                                 selectSom.play()
+                                                zelda.play()
                                                 print("escolhaSom == 0")
                                                 escolhaSom = 1
 
                                         elif escolhaSom == 1:
+                                                zelda.stop()
                                                 print("escolhaSom == 1")
-                                                escolhaSom = 0        
+                                                escolhaSom = 0
+                                                
 
                 screen.fill(darkSlateGray)
                 if escolhaSom == 1:
@@ -557,9 +563,7 @@ def telaSeleciona(ValorSom):
         troca = 1
         escolhaSom = ValorSom
 #-------------SELECIONA PERSONAGEM-------------
-        #Loop da música
-        if escolhaSom == 1:
-                zelda.play(-1)
+
         while True:
                 clock.tick(3)
                 for event in pygame.event.get():
@@ -1099,6 +1103,10 @@ def telaFinal(ValorSom,troca):
                                         
                                         if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
                                                 print("Voltando pro menu:")
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        derrotaSom.stop()
+                                                return
                                                 
                         screen.blit(fundoDerrota,posFundo)                             
                         screen.blit(podium,posPodium)
@@ -1135,6 +1143,11 @@ def telaFinal(ValorSom,troca):
                                         
                                         if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
                                                 print("Voltando pro menu:")
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        vitoriaSom.stop()
+                                                return
+                                                
                                                 
                         screen.blit(fundoVitoria,posFundo)                             
                         screen.blit(podium,posPodium)
