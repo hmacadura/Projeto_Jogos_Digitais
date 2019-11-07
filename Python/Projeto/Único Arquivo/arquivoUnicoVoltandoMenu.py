@@ -1,6 +1,7 @@
 import pygame
 import sys
 import time
+import quadrados
 pygame.init()
 pygame.mixer.init()
 
@@ -9,10 +10,10 @@ widthScreen = 1280
 heightScreen = 720
 
 #-------------TELA CHEIA-------------
-screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
+#screen = pygame.display.set_mode( (widthScreen,heightScreen),pygame.FULLSCREEN )
 
 #-------------JANELA NORMAL-------------
-#screen = pygame.display.set_mode( (widthScreen,heightScreen))
+screen = pygame.display.set_mode( (widthScreen,heightScreen))
 
 #-------------Definindo Cores-------------
 black = (0,0,0)
@@ -522,7 +523,7 @@ def telaSom(ValorSom):
 
 
 def telaInstrucao(ValorSom):
-        escolhaSom = ValorSom
+        escolhaSom = True
 #-------------Tela Instruções-------------
         while True:
                 clock.tick(60)
@@ -736,7 +737,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 selectSom.play()
                                                 running = False
                                                 verHistoria = False
-                                                telaJogo(escolhaSom,troca)
+                                                quadrados.tabuleiro()
                                                 return troca and escolhaSom
                                                 pygame.display.update()
 
