@@ -2,10 +2,15 @@ import pygame
 from pygame import draw
 from pygame.locals import *
 from random import randint
-from sys import exit 
+from sys import exit
+pygame.mixer.init()
 ####
+somTabuleiro = pygame.mixer.Sound("../../../Sounds/07-spirit-of-hospitality.wav")
 
-def tabuleiro():
+def tabuleiro(valorSom):
+        escolhaSom = valorSom
+        if escolhaSom == 1:
+                somTabuleiro.play(-1)
         pygame.init()
         screen = pygame.display.set_mode((1280,720))
         fundoTelaTabuleiro = pygame.image.load("../../../Sprites/Fundo/tabuleiroComSimbolos.png")

@@ -32,6 +32,12 @@ sprite_index = 0
 #-------------------------------------------SONS--------------------------------
 zelda = pygame.mixer.Sound("../../../Sounds/temaZelda.wav")
 
+vitoriaSom = pygame.mixer.Sound("../../../Sounds/overwatchVitory.wav")
+
+somTabuleiro = pygame.mixer.Sound("../../../Sounds/07-spirit-of-hospitality.wav")
+
+derrotaSom = pygame.mixer.Sound("../../../Sounds/03-resurrections.wav")
+
 setaSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoTroca.wav")
 
 selectSom = pygame.mixer.Sound("../../../Sounds/Efeitos/botaoSelect.wav")
@@ -366,7 +372,7 @@ clock = pygame.time.Clock()
 troca = 1
 
 #Variavel que definirá se tem som
-escolhaSom = 0
+escolhaSom = 1
 
 #Tamanho do Texto
 font = pygame.font.Font('freesansbold.ttf', 32)
@@ -396,12 +402,12 @@ verHistoria = False
 jogo = True
 
 #Variavel para saber o resultado
-resultado = False
+resultado = True
 
 condicao = 0
 
 #Funções
-#-------------Tela jogo-------------
+'''#-------------Tela jogo-------------
 def telaJogo(ValorSom,troca):
         print("bora")
         valorSom = escolhaSom
@@ -414,7 +420,7 @@ def telaJogo(ValorSom,troca):
                                 verInicio = False
                                 pygame.quit()
                                 sys.exit()                
-                pygame.display.update()
+                pygame.display.update()'''
                 
 #-------------Tela Início-------------
 def telaInicio():
@@ -451,28 +457,26 @@ def telaMenu(ValorSom):
                                 
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 posMouse = event.pos
-                                
+                                if escolhaSom == 1:
+                                                selectSom.play()
                                 if clicou(posMouse, botaoIniciar, posBotaoIniciar):
                                         escolhaSom = telaSeleciona(escolhaSom)
-                                        #print("Entrando no Jogo:")
-                                        if escolhaSom == 1:
-                                                selectSom.play()
-                                                
-                                        
+                                        print("Entrando no Jogo:")
+                                        #if escolhaSom == 1:
+                                         #       selectSom.play()
+                                                                                        
                                 elif clicou(posMouse, botaoInstrucoes, posBotaoInstrucoes):
                                         escolhaSom = telaInstrucao(escolhaSom)
-                                        #print("Entrando na Tela de Instruções:")
+                                        print("Entrando na Tela de Instruções:")
                                         if escolhaSom == 1:
                                                 selectSom.play()
                                                                                                                                      
                                 elif clicou (posMouse, botaoOpcoes, posBotaoOpcoes):
                                         escolhaSom = telaSom(escolhaSom)
-                                        #print("Entrando na Tela de Som:")
+                                        print("Entrando na Tela de Som:")
                                         if escolhaSom == 1:
                                                 selectSom.play()
-                                                
-                                       
-
+                                        
                 screen.blit(fundoTelaInicio , posFundo)
                 screen.blit(botaoIniciar    , posBotaoIniciar)
                 screen.blit(botaoInstrucoes , posBotaoInstrucoes)        
@@ -618,8 +622,7 @@ def telaSeleciona(ValorSom):
                                                 
                                 elif clicou(posMouse, botaoSelecionar, posBotaoSelecionar):
                                         print("Selecionou:" + str(troca))
-                                        if escolhaSom == 1:
-                                                pygame.mixer.pause()
+                                        if escolhaSom == 1:                                                
                                                 selectSom.play()
                                         screen.fill(black)
                                         telaMugshot(escolhaSom,troca,condicao)
@@ -734,10 +737,13 @@ def telaMugshot(ValorSom,troca, condicao):
 
                                         if clicou(posMouse,fundoTelaInicio, posFundo):
                                                 print("Saindo da Tela Mugshot:")
-                                                selectSom.play()
+                                                #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
-                                                quadrados.tabuleiro()
+                                                quadrados.tabuleiro(escolhaSom)
                                                 return troca and escolhaSom
                                                 pygame.display.update()
 
@@ -798,7 +804,10 @@ def telaMugshot(ValorSom,troca, condicao):
 
                                         if clicou(posMouse,fundoTelaInicio, posFundo):
                                                 print("Saindo da Tela Mugshot:")
-                                                selectSom.play()
+                                                #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
                                                 telaJogo(escolhaSom,troca)
@@ -893,7 +902,10 @@ def telaMugshot(ValorSom,troca, condicao):
 
                                         if clicou(posMouse,fundoTelaInicio, posFundo):
                                                 print("Saindo da Tela Mugshot:")
-                                                selectSom.play()
+                                                #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
                                                 telaJogo(escolhaSom,troca)
@@ -953,7 +965,10 @@ def telaMugshot(ValorSom,troca, condicao):
 
                                         if clicou(posMouse,fundoTelaInicio, posFundo):
                                                 print("Saindo da Tela Mugshot:")
-                                                selectSom.play()
+                                                #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
                                                 telaJogo(escolhaSom,troca)
@@ -1051,7 +1066,10 @@ def telaMugshot(ValorSom,troca, condicao):
 
                                         if clicou(posMouse,fundoTelaInicio, posFundo):
                                                 print("Saindo da Tela Mugshot:")
-                                                selectSom.play()
+                                               #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                                                if escolhaSom == 1:
+                                                        selectSom.play()
+                                                        pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
                                                 telaJogo(escolhaSom,troca)
@@ -1068,6 +1086,8 @@ def telaMugshot(ValorSom,troca, condicao):
 while True:
         clock.tick(60)
         if resultado == False:
+                if escolhaSom == 1 :
+                        derrotaSom.play()
                 
                 for event in pygame.event.get():
                         if event.type == pygame.QUIT:
@@ -1090,7 +1110,8 @@ while True:
                 pygame.display.update()
                 
         elif resultado == True:
-                
+                if escolhaSom == 1 :
+                        vitoriaSom.play()
                 for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                                 verInicio = False
