@@ -12,7 +12,6 @@ Tamanho da Tela inteira 1280 X 720 px
 
 Tamanho do Placar e do dado: 380 X 720 px
 
-Resumo do jogo:
 
 
 
