@@ -668,8 +668,6 @@ def telaSeleciona(ValorSom):
                 pygame.display.update()
         print(troca)
         
-
-
 def telaMugshot(ValorSom,troca, condicao):
         escolhaSom = ValorSom
         #Variavel que Percorrerá o Array das Sprites
@@ -1104,7 +1102,20 @@ while True:
                 screen.blit(fundoDerrota,posFundo)                             
                 screen.blit(podium,posPodium)
                 screen.blit(cavaleiroNegroVitoria,posCavaleiroNegroVitoria)
-                #COLOCAR O HERÓI
+                if troca == 1:
+                        screen.blit(heroiSpritesMenu[sprite_index], (xCavaleiroNegroDerrota + 15,yCavaleiroNegroDerrota))
+                        
+                elif troca == 2:
+                        screen.blit(cavaleiroSpritesMenu[sprite_index],(xCavaleiroNegroDerrota + 15,yCavaleiroNegroDerrota))
+                
+                elif troca == 3:
+                        screen.blit(feiticeiraSpritesMenu[sprite_index],(xCavaleiroNegroDerrota + 15,yCavaleiroNegroDerrota))
+                        
+                elif troca == 4:            
+                        screen.blit(magoSpritesMenu[sprite_index],(xCavaleiroNegroDerrota + 15,yCavaleiroNegroDerrota))
+
+                elif troca == 5:          
+                        screen.blit(princesaSpritesMenu[sprite_index],(xCavaleiroNegroDerrota + 15,yCavaleiroNegroDerrota))
                 screen.blit(botaoTentarNovamente,posBotaoTentarNovamente)                             
                    
                 pygame.display.update()
@@ -1127,19 +1138,26 @@ while True:
                 screen.blit(fundoVitoria,posFundo)                             
                 screen.blit(podium,posPodium)
                 screen.blit(cavaleiroNegroDerrota,posCavaleiroNegroDerrota)
-                #COLOCAR O HERÓI
+                if troca == 1:
+                        screen.blit(heroiSpritesMenu[sprite_index], (xCavaleiroNegroVitoria + 17.5,yCavaleiroNegroVitoria + 15))
+                        
+                elif troca == 2:
+                        screen.blit(cavaleiroSpritesMenu[sprite_index],(xCavaleiroNegroVitoria + 17.5,yCavaleiroNegroVitoria + 15))
+                
+                elif troca == 3:
+                        screen.blit(feiticeiraSpritesMenu[sprite_index],(xCavaleiroNegroVitoria + 17.5,yCavaleiroNegroVitoria + 15))
+                        
+                elif troca == 4:            
+                        screen.blit(magoSpritesMenu[sprite_index],(xCavaleiroNegroVitoria + 17.5,yCavaleiroNegroVitoria + 15))
+
+                elif troca == 5:          
+                        screen.blit(princesaSpritesMenu[sprite_index],(xCavaleiroNegroVitoria + 17.5,yCavaleiroNegroVitoria + 15))
                 screen.blit(botaoTentarNovamente,posBotaoTentarNovamente)                             
                    
                 pygame.display.update()
 
-'''
 
-telaInicio()
-escolhaSom = telaMenu(escolhaSom)
-pygame.quit()
-
-
-'''      
+'''     
 while True:
         if verInicio == True:
                 telaInicio()
@@ -1164,4 +1182,4 @@ while (running):
                 if event.type == pygame.QUIT:
                         running = False
                         pygame.quit()
-                        sys.exit()'''
+                        sys.exit()
