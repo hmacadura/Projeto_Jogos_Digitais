@@ -7,7 +7,7 @@ pygame.mixer.init()
 ####
 somTabuleiro = pygame.mixer.Sound("../../../Sounds/07-spirit-of-hospitality.wav")
 
-def tabuleiro(valorSom):
+def tabuleiro(valorSom,troca):
         escolhaSom = valorSom
         if escolhaSom == 1:
                 somTabuleiro.play(-1)
@@ -20,17 +20,39 @@ def tabuleiro(valorSom):
         dadoSpritesMenu = []
         for countMenu in range (1,7):
                 dadoSpritesMenu.append(pygame.image.load("../../../Sprites/Dado/Modelo Branco/dado" + str(countMenu) + ".png").convert_alpha())
+
+        
         heroiSpritesMenu = []
-        for countMenu in range (1,8):
-                heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Herói/Imagens Normais/Heroi" + str(countMenu) + ".png").convert_alpha())
+        if troca == 1:
+                for countMenu in range (1,8):
+                        heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Herói/Imagens Normais/Heroi" + str(countMenu) + ".png").convert_alpha())
+                jogador = "Heroi"
+        if troca == 2:
+                for countMenu in range (1,8):
+                        heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Cavaleiro/Imagens Normais/Cavaleiro" + str(countMenu) + ".png").convert_alpha())
+                jogador = "Cavaleiro"
+        if troca == 3:
+                for countMenu in range (1,8):
+                        heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Feiticeira/Imagens Normais/Feiticeira" + str(countMenu) + ".png").convert_alpha())
+                jogador = "Feiticeira"
+        if troca == 4:
+                for countMenu in range (1,8):
+                        heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Mago/Imagens Normais/Mago" + str(countMenu) + ".png").convert_alpha())
+                jogador = "Mago"
+        if troca == 5:
+                for countMenu in range (1,8):
+                        heroiSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Princesa/Imagens Normais/Princesa" + str(countMenu) + ".png").convert_alpha())
+                jogador = "Princesa"
+                
         cavaleiroNegroSpritesMenu = []
         for countMenu in range (1,12):
                 cavaleiroNegroSpritesMenu.append(pygame.image.load("../../../Sprites/Personagens/Cavaleiro Negro/Sprites Sem Sombras/CavaleiroNegroSemSombra" + str(countMenu) + ".png").convert_alpha())
         magiaSpritesMenu = []
         for countMenu in range (1,9):
                 magiaSpritesMenu.append(pygame.image.load("../../../Sprites/Magia/Magia Azul/Imagens Normais/magia_azul" + str(countMenu) + ".png").convert_alpha())
-
-
+        magiaroxaSpritesMenu = []
+        for countMenu in range (1,9):
+                magiaroxaSpritesMenu.append(pygame.image.load("../../../Sprites/Magia/Magia Roxa/Imagens Normais/magia_roxa" + str(countMenu) + ".png").convert_alpha())
 
 
 
@@ -41,7 +63,20 @@ def tabuleiro(valorSom):
                 exit()
 
 
+        def blit_rotate_dado(screen, dadoSprites, posDado, dadoSom, tempo):
+                dadoSom.play()
+                count = tempo
+                dadoIndice = 0
+                while count > 0:
+                        screen.fill(background_color)
+                        screen.blit(botaoDado ,posBotaoDado)
+                        screen.blit(dadoSprites[dadoIndice], posDado)
+                        pygame.display.update()
 
+                        dadoIndice = (dadoIndice + 1) % len(dadoSprites)
+                        count -=1 
+                        clock.tick(30)
+                        print('shuffing dice')
         def clicouTabuleiro (PosMouse, Superficie, PosSuperficie):
                 #Rect(x, y, width, height)
                 widthSuperficie = 90
@@ -65,8 +100,7 @@ def tabuleiro(valorSom):
         contadorJogadorAtual = 1
         contadorComputador = 1
         sorteio = randint(0,5)
-        print(sorteio)
-        numSorteado = sorteio + 2
+        numSorteado = 2  + sorteio 
         numSorteadoComputador = randint(1,6) + 1
         contadorJogadorErros = 0
         personagemIndice = 0
@@ -85,7 +119,7 @@ def tabuleiro(valorSom):
         cavaleiroNegroTransformado = pygame.transform.scale(cavaleiroNegro, (50,50))
         posDado = [1000,400]
         posBotao = [950,600]
-        xMensagem = 830
+        xMensagem = 802
         yMensagem = 50
         while rodando:
             cor = (255,255,255)
@@ -106,14 +140,14 @@ def tabuleiro(valorSom):
             screen.blit(heroiTransformado, coordJogadorAtual)
             screen.blit(cavaleiroNegroTransformado, coordComputador)
             if contadorJogadorAtual > contadorComputador:
-                mensagem = "Jogador - Casa " + str(contadorJogadorAtual) 
+                mensagem = jogador + " - Casa " + str(contadorJogadorAtual) 
                 texto = font.render(mensagem, True, cor)
                 screen.blit(texto, [100 + xMensagem , yMensagem])
                 mensagem2 = "Cavaleiro Negro - Casa "+ str(contadorComputador)
                 texto2 = font.render(mensagem2, True, cor)
                 screen.blit(texto2, [100 + xMensagem , yMensagem+50])
             elif contadorJogadorAtual == contadorComputador:
-                mensagem = "Jogador - Casa " + str(contadorJogadorAtual) 
+                mensagem = jogador + " - Casa " + str(contadorJogadorAtual) 
                 texto = font.render(mensagem, True, cor)
                 screen.blit(texto, [100 + xMensagem , yMensagem])
                 mensagem2 = "Cavaleiro Negro - Casa "+ str(contadorComputador)
@@ -123,7 +157,7 @@ def tabuleiro(valorSom):
                 mensagem = "Cavaleiro Negro - Casa "+ str(contadorComputador)
                 texto = font.render(mensagem, True, cor)
                 screen.blit(texto, [100 + xMensagem , yMensagem])
-                mensagem2 = "Jogador - Casa " + str(contadorJogadorAtual) 
+                mensagem2 = jogador + " - Casa " + str(contadorJogadorAtual) 
                 texto2 = font.render(mensagem2, True, cor)
                 screen.blit(texto2, [100 + xMensagem , yMensagem+50])
             pygame.display.update()
@@ -133,33 +167,28 @@ def tabuleiro(valorSom):
                         coordXTabuleiroJogador = coordXTabuleiroJogador+90
                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                         contadorJogador +=1
-                        pygame.time.wait(100)
                     else:
                         direcao = False
                         coordYTabuleiroJogador = coordYTabuleiroJogador-72
                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                         contadorJogador +=1
-                        pygame.time.wait(100)
             else:
                 if contadorJogador != numSorteado:
                     if coordXTabuleiroJogador != 0:
                         coordXTabuleiroJogador = coordXTabuleiroJogador-90
                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                         contadorJogador +=1
-                        pygame.time.wait(100)
                     else:
                         direcao = True
                         coordYTabuleiroJogador = coordYTabuleiroJogador-72
                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                         contadorJogador +=1
-                        pygame.time.wait(100)
             retangulo = (coordXTabuleiroJogador,coordYTabuleiroJogador,90,72)
             posicao =  (coordXTabuleiroJogador,coordYTabuleiroJogador)
             screen.blit(fundoTelaTabuleiro ,posFundo)
             screen.blit(heroiTransformado, coordJogadorAtual)
             screen.blit(cavaleiroNegroTransformado, coordComputador)
             pygame.display.update()
-            print (numSorteado)
             localiza = True
             if contadorJogador == numSorteado:
                 pygame.display.update()
@@ -180,14 +209,14 @@ def tabuleiro(valorSom):
                     screen.blit(heroiTransformado, coordJogadorAtual)
                     screen.blit(cavaleiroNegroTransformado, coordComputador)
                     if contadorJogadorAtual > contadorComputador:
-                        mensagem = "Jogador - Casa " + str(contadorJogadorAtual) 
+                        mensagem = jogador + " - Casa " + str(contadorJogadorAtual) 
                         texto = font.render(mensagem, True, cor)
                         screen.blit(texto, [100 + xMensagem , yMensagem])
                         mensagem2 = "Cavaleiro Negro - Casa "+ str(contadorComputador)
                         texto2 = font.render(mensagem2, True, cor)
                         screen.blit(texto2, [100 + xMensagem , yMensagem+50])
                     elif contadorJogadorAtual == contadorComputador:
-                        mensagem = "Jogador - Casa " + str(contadorJogadorAtual) 
+                        mensagem = jogador + " - Casa " + str(contadorJogadorAtual) 
                         texto = font.render(mensagem, True, cor)
                         screen.blit(texto, [100 + xMensagem , yMensagem])
                         mensagem2 = "Cavaleiro Negro - Casa "+ str(contadorComputador)
@@ -197,7 +226,7 @@ def tabuleiro(valorSom):
                         mensagem = "Cavaleiro Negro - Casa "+ str(contadorComputador)
                         texto = font.render(mensagem, True, cor)
                         screen.blit(texto, [100 + xMensagem , yMensagem])
-                        mensagem2 = "Jogador - Casa " + str(contadorJogadorAtual) 
+                        mensagem2 = jogador + " - Casa " + str(contadorJogadorAtual) 
                         texto2 = font.render(mensagem2, True, cor)
                         screen.blit(texto2, [100 + xMensagem , yMensagem+50])
                     
@@ -213,11 +242,9 @@ def tabuleiro(valorSom):
                                     dado = dadoSpritesMenu[sorteio -1]
                                     dado1 = pygame.transform.scale(dado, (200,200))
                                     screen.blit(dado1,posDado)
-                                    print (contadorJogador)
                                     localiza = False
                                     rodar = True
                                     a = 0
-                                    print (numSorteado)
                                     while contadorJogadorAtual != contadorJogador:
                                         if direcaoAtual:
                                             if contadorJogadorAtual != numSorteado :
@@ -235,7 +262,6 @@ def tabuleiro(valorSom):
                                                 else:
                                                     if contadorJogadorAtual != numSorteado :   
                                                         if coordXTabuleiroJogadorAtual == 810:
-                                                            print("AAAAAAAAAAAAAAAAAaaaa")
                                                             a=0
                                                             direcaoAtual = False
                                                             while a<8:
@@ -254,8 +280,6 @@ def tabuleiro(valorSom):
                                                                     pygame.time.wait(100)
                                                                     if a ==8:
                                                                         contadorJogadorAtual +=1
-                                                                        print (coordXTabuleiroJogadorAtual)
-                                                                        print (coordYTabuleiroJogadorAtual)
                                                                 else:
                                                                     a=10
                                         else:
@@ -272,7 +296,6 @@ def tabuleiro(valorSom):
                                                             a=0
                                                 if contadorJogadorAtual != contadorJogador:   
                                                     if coordXTabuleiroJogadorAtual == 0:
-                                                        print("AAAAAAAAA")
                                                         a=0
                                                         direcaoAtual = True
                                                         while a<8:
@@ -294,10 +317,6 @@ def tabuleiro(valorSom):
                                                                         
                                                                 else:
                                                                     a=0
-                                        print (coordXTabuleiroJogadorAtual)
-                                        print (coordYTabuleiroJogadorAtual)
-                                        print (coordXTabuleiroJogador)
-                                        print (coordYTabuleiroJogador)
                                         if contadorJogadorAtual == contadorJogador:
                                             if  coordYTabuleiroJogadorAtual != coordYTabuleiroJogador or coordXTabuleiroJogadorAtual !=coordXTabuleiroJogador:
                                                 coordYTabuleiroJogadorAtual = coordYTabuleiroJogador
@@ -309,7 +328,6 @@ def tabuleiro(valorSom):
                                         screen.blit(cavaleiroNegroTransformado, coordComputador) 
                                         screen.blit(heroiTransformado, coordJogadorAtual)
                                         pygame.display.update()
-                                        print(contadorJogadorAtual)
                                        # pygame.time.wait(50)
                                     if contadorJogador== 4:
                                         magiaIndice = 0
@@ -354,6 +372,7 @@ def tabuleiro(valorSom):
                                         coordYTabuleiroJogador = 216
                                         contadorJogador = 66
                                         numSorteado = 66
+                                        coordMagia=[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         while magiaIndice >0:
                                                 magia = magiaSpritesMenu[magiaIndice]
                                                 magia1 = pygame.transform.scale(magia, (72,90))
@@ -365,6 +384,7 @@ def tabuleiro(valorSom):
                                                 magiaIndice -=1
                                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         direcao = True
+                                        direcaoAtual= True
                                     elif contadorJogador== 42:
                                         magiaIndice = 0
                                         coordMagia=[coordXTabuleiroJogador,coordYTabuleiroJogador]
@@ -379,10 +399,8 @@ def tabuleiro(valorSom):
                                                 magiaIndice +=1
                                         coordXTabuleiroJogador = 630
                                         coordYTabuleiroJogador = 72
-                                        contadorJogador = 88
-                                        numSorteado = 88
-                                        coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
-                                        while magiaIndice >0:
+                                        coordMagia=[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                                        while magiaIndice !=0:
                                                 magia = magiaSpritesMenu[magiaIndice]
                                                 magia1 = pygame.transform.scale(magia, (72,90))
                                                 screen.blit(fundoTelaTabuleiro ,posFundo)
@@ -391,14 +409,31 @@ def tabuleiro(valorSom):
                                                 pygame.display.update()
                                                 pygame.time.wait(30)
                                                 magiaIndice -=1
+                                        contadorJogador = 88
+                                        numSorteado = 88
+                                        coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         direcao = True
+                                        direcaoAtual= True
                                     elif contadorJogador== 53:
+                                        magiaIndice = 6
+                                        coordMagia=[coordXTabuleiroJogador,coordYTabuleiroJogador]
+                                        while magiaIndice >0:
+                                                magia = magiaroxaSpritesMenu[magiaIndice]
+                                                magia1 = pygame.transform.scale(magia, (72,90))
+                                                screen.blit(fundoTelaTabuleiro ,posFundo)
+                                                screen.blit(magia1, coordMagia)
+                                                screen.blit(cavaleiroNegroTransformado, coordComputador)
+                                                pygame.display.update()
+                                                pygame.time.wait(30)
+                                                magiaIndice -=1
+                                        
                                         coordXTabuleiroJogador = 360
                                         coordYTabuleiroJogador = 576
                                         contadorJogador = 16
                                         numSorteado = 16
                                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         direcao = False
+                                        direcaoAtual= False
                                         pygame.display.update()
                                     elif contadorJogador== 63:
                                         coordXTabuleiroJogador = 450
@@ -407,6 +442,7 @@ def tabuleiro(valorSom):
                                         numSorteado = 43
                                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         direcao = False
+                                        direcaoAtual= False
                                         pygame.display.update()
                                     elif contadorJogador== 85:
                                         coordXTabuleiroJogador = 180
@@ -415,6 +451,7 @@ def tabuleiro(valorSom):
                                         numSorteado = 43
                                         coordJogador =[coordXTabuleiroJogador,coordYTabuleiroJogador]
                                         direcao = True
+                                        direcaoAtual= True
                                         pygame.display.update()
                                     if contadorJogadorAtual== 4:
                                         coordXTabuleiroJogadorAtual = 630
@@ -461,102 +498,182 @@ def tabuleiro(valorSom):
                                         direcaoAtual = True
                                         pygame.display.update()
                                 else:
-                                    print ("errou")
                                     contadorJogadorErros = contadorJogadorErros + 1
                                     if contadorJogadorErros >=5:
                                         cor = (0,255,0)
                                         pygame.draw.rect(screen,cor,Rect(coordJogador,dimensao))
                                         pygame.display.update()
 
-                numSorteado = numSorteado + sorteio                        
+                numSorteado = numSorteado + sorteio
+                if numSorteado>100:
+                        numSorteado = 100
+                if numSorteadoComputador>100:
+                        numSorteadoComputador = 100
+            a=0
             while rodar:
                 if direcaoComputador:
-                    if contadorComputador != numSorteadoComputador:
+                    if contadorComputador != numSorteadoComputador :
                         if coordXTabuleiroComputador != 810 :
-                            coordXTabuleiroComputador = coordXTabuleiroComputador+90
-                            coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                            contadorComputador +=1
-                        else:
+                            if a<10:
+                                coordXTabuleiroComputador = coordXTabuleiroComputador+9
+                                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                                a+=1
+                                computadorIndice +=1
+                                computadorIndice = computadorIndice %2 + 4
+                                heroi = heroiSpritesMenu[personagemIndice]
+                                if a ==10:
+                                    contadorComputador +=1
+                                    a=0
+                        elif coordXTabuleiroComputador == 810 :
+                            print("subiu")
                             direcaoComputador = False
                             coordYTabuleiroComputador = coordYTabuleiroComputador-72
                             coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
                             contadorComputador +=1
                     else:
                         rodar = False
-                        sorteio = randint(0,6)
+                        sorteio = randint(1,6)
                         numSorteadoComputador = numSorteadoComputador + sorteio
                 else:
+                    print ("else 4")
                     if contadorComputador != numSorteadoComputador:
                         if coordXTabuleiroComputador != 0:
-                            coordXTabuleiroComputador = coordXTabuleiroComputador-90
-                            coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                            contadorComputador +=1
+                            if a<10:
+                                print ("if 1")
+                                coordXTabuleiroComputador = coordXTabuleiroComputador-9
+                                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                                a= a +1
+                                computadorIndice +=1
+                                computadorIndice = computadorIndice %2 + 4
+                                heroi = heroiSpritesMenu[personagemIndice]
+                            if a==10:
+                                print("else 1")
+                                contadorComputador +=1
+                                a=0
                         else:
+                            print ("else 2")
                             direcaoComputador = True
                             coordYTabuleiroComputador = coordYTabuleiroComputador-72
                             coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
                             contadorComputador +=1
                     else:
+                        print ("else 3")
                         rodar = False        
-                        sorteio = randint(1,7)
+                        sorteio = randint(1,6)
                         numSorteadoComputador = numSorteadoComputador + sorteio
-                if contadorJogadorAtual== 4:
-                    coordXTabuleiroComputador = 630
-                    coordYTabuleiroComputador = 504
-                    contadorComputador = 28
-                    numSorteadoComputador = 28
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                elif contadorComputador== 37:
-                    coordXTabuleiroComputador = 450
-                    coordYTabuleiroComputador = 216
-                    contadorComputador = 66
-                    numSorteadoComputador = 66
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                    direcaoAtual = True
-                elif contadorComputador== 42:
-                    coordXTabuleiroComputador = 630
-                    coordYTabuleiroComputador = 72
-                    contadorComputador = 88
-                    numSorteadoComputador = 88
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                    direcaoAtual = True
-                elif contadorComputador== 53:
-                    coordXTabuleiroComputador = 360
-                    coordYTabuleiroComputador = 576
-                    contadorComputador = 16
-                    numSorteadoComputador = 16
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                    direcaoAtual = False
-                    pygame.display.update()
-                elif contadorComputador== 63:
-                    coordXTabuleiroComputador = 450
-                    coordYTabuleiroComputador = 432
-                    contadorComputador = 43
-                    numSorteadoComputador = 43
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                    direcao = False
-                    pygame.display.update()
-                elif contadorComputador== 85:
-                    coordXTabuleiroComputador = 180
-                    coordYTabuleiroComputador = 360
-                    contadorComputador = 43
-                    numSorteadoComputador = 43
-                    coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
-                    direcaoAtual = True
-                    pygame.display.update()
+                print (contadorComputador)
                 screen.blit(fundoTelaTabuleiro ,posFundo)
+                cavaleiroNegro = cavaleiroNegroSpritesMenu[computadorIndice]
+                cavaleiroNegroTransformado = pygame.transform.scale(cavaleiroNegro, (50,50))
                 screen.blit(heroiTransformado, coordJogadorAtual)
                 screen.blit(cavaleiroNegroTransformado, coordComputador)
                 pygame.display.update()
-                #pygame.time.wait(1000)
-                if contadorJogador == 100:
-                    print("ganhou")
-                    rodando = False
+            if contadorComputador== 4:
+                magiaIndice = 0
+                coordMagia=[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                while magiaIndice <7:
+                    magia = magiaSpritesMenu[magiaIndice]
+                    magia1 = pygame.transform.scale(magia, (72,90))
+                    screen.blit(fundoTelaTabuleiro ,posFundo)
+                    screen.blit(magia1, coordMagia)
+                    screen.blit(heroiTransformado, coordJogadorAtual)
+                    pygame.display.update()
+                    pygame.time.wait(30)
+                    magiaIndice +=1
+                coordXTabuleiroComputador = 630
+                coordYTabuleiroComputador = 504
+                contadorComputador = 28
+                numSorteadoComputador = 28
+                coordMagia=[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                while magiaIndice >0:
+                        magia = magiaSpritesMenu[magiaIndice]
+                        magia1 = pygame.transform.scale(magia, (72,90))
+                        screen.blit(fundoTelaTabuleiro ,posFundo)
+                        screen.blit(magia1, coordMagia)
+                        screen.blit(cavaleiroNegroTransformado, coordComputador)
+                        screen.blit(heroiTransformado, coordJogadorAtual)
+                        pygame.display.update()
+                        pygame.time.wait(30)
+                        magiaIndice -=1
+                screen.blit(cavaleiroNegroTransformado, coordComputador)
+            elif contadorComputador== 37:
+                magiaIndice = 0
+                coordMagia=[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                while magiaIndice <7:
+                    magia = magiaSpritesMenu[magiaIndice]
+                    magia1 = pygame.transform.scale(magia, (72,90))
+                    screen.blit(fundoTelaTabuleiro ,posFundo)
+                    screen.blit(magia1, coordMagia)
+                    screen.blit(cavaleiroNegroTransformado, coordComputador)
+                    screen.blit(heroiTransformado, coordJogadorAtual)
+                    pygame.display.update()
+                    pygame.time.wait(30)
+                    magiaIndice +=1
+                coordXTabuleiroComputador = 450
+                coordYTabuleiroComputador = 216
+                contadorComputador = 66
+                numSorteadoComputador = 66
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                coordMagia=[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                while magiaIndice >0:
+                        magia = magiaSpritesMenu[magiaIndice]
+                        magia1 = pygame.transform.scale(magia, (72,90))
+                        screen.blit(fundoTelaTabuleiro ,posFundo)
+                        screen.blit(magia1, coordMagia)
+                        screen.blit(heroiTransformado, coordJogadorAtual)
+                        pygame.display.update()
+                        pygame.time.wait(30)
+                        magiaIndice -=1
+                direcaoComputador = True
+            elif contadorComputador== 42:
+                coordXTabuleiroComputador = 630
+                coordYTabuleiroComputador = 72
+                contadorComputador = 88
+                numSorteadoComputador = 88
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                direcaoComputador = True
+            elif contadorComputador== 53:
+                coordXTabuleiroComputador = 360
+                coordYTabuleiroComputador = 576
+                contadorComputador = 16
+                numSorteadoComputador = 16
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                direcaoComputador = False
                 pygame.display.update()
-                if contadorComputador == 100:
-                    print("perdeu")
-                    rodando = False
+            elif contadorComputador== 63:
+                coordXTabuleiroComputador = 450
+                coordYTabuleiroComputador = 432
+                contadorComputador = 43
+                numSorteadoComputador = 43
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                direcaoComputador = False
                 pygame.display.update()
+            elif contadorComputador== 85:
+                coordXTabuleiroComputador = 180
+                coordYTabuleiroComputador = 360
+                contadorComputador = 43
+                numSorteadoComputador = 43
+                coordComputador =[coordXTabuleiroComputador,coordYTabuleiroComputador]
+                direcaoComputador = True
+                pygame.display.update()
+            screen.blit(fundoTelaTabuleiro ,posFundo)
+            screen.blit(heroiTransformado, coordJogadorAtual)
+            screen.blit(cavaleiroNegroTransformado, coordComputador)
+            pygame.display.update()
+            pygame.time.wait(10)
+            if contadorJogador == 100:
+                print("ganhou")
+                somTabuleiro.stop()
+                rodando = False
+                return True
+            pygame.display.update()
+            if contadorComputador == 100:
+                print("perdeu")
+                somTabuleiro.stop()
+                rodando = False
+                return False
+            pygame.display.update()
 
             
 

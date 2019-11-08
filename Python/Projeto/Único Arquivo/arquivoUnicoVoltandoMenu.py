@@ -407,7 +407,7 @@ resultado = True
 condicao = 0
 
 #Funções
-'''#-------------Tela jogo-------------
+#-------------Tela jogo-------------
 def telaJogo(ValorSom,troca):
         print("bora")
         valorSom = escolhaSom
@@ -415,12 +415,14 @@ def telaJogo(ValorSom,troca):
                 screen.blit(fundoCaverna ,posFundo)
                 screen.blit(tabuleiro ,posFundo)
                 clock.tick(60)
+                resposta = quadrados.tabuleiro(ValorSom,troca)
+                telaFinal(ValorSom,troca)
                 for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                                 verInicio = False
                                 pygame.quit()
                                 sys.exit()                
-                pygame.display.update()'''
+                pygame.display.update()
                 
 #-------------Tela Início-------------
 def telaInicio():
@@ -725,7 +727,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(heroiSpritesMugshot[sprite_index], posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -745,7 +747,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                         pygame.mixer.pause()
                                                 running = False
                                                 verHistoria = False
-                                                quadrados.tabuleiro(escolhaSom)
+                                                telaJogo(escolhaSom,troca)
                                                 return troca and escolhaSom
                                                 pygame.display.update()
 
@@ -792,7 +794,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(cavaleiroSpritesMugshot[sprite_index],posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -856,7 +858,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -891,7 +893,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(feiticeiraSpritesMugshot[sprite_index],posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -954,7 +956,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(magoSpritesMugshot[sprite_index],posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -1054,7 +1056,7 @@ def telaMugshot(ValorSom,troca, condicao):
                                                 contadorMensagem = contadorMensagem+1
                                                 if contadorMensagem == tamanhoMsg:
                                                         break
-                                                #time.sleep(0.05)
+                                                time.sleep(0.05)
                                                 contadorSprite = contadorSprite + 1
                                                 screen.blit(princesaSpritesMugshot[sprite_index],posPersonagemMugshot)
                                                 screen.blit(molduraMugshot, posMolduraMugshot)
@@ -1087,6 +1089,7 @@ def telaFinal(ValorSom,troca):
         escolhaSom = ValorSom
 #----------------------TELA FINAL--------------------
         while True:
+                somTabuleiro.stop()
                 clock.tick(60)
                 if resultado == False:
                         if escolhaSom == 1 :
@@ -1101,8 +1104,10 @@ def telaFinal(ValorSom,troca):
                                 if event.type == pygame.MOUSEBUTTONDOWN:
                                         posMouse = event.pos
                                         
+                                        
                                         if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
                                                 print("Voltando pro menu:")
+                                                derrotaSom.stop()
                                                 if escolhaSom == 1:
                                                         selectSom.play()
                                                         derrotaSom.stop()
@@ -1131,6 +1136,7 @@ def telaFinal(ValorSom,troca):
                         
                 elif resultado == True:
                         if escolhaSom == 1 :
+                                zelda.stop()
                                 vitoriaSom.play()
                         for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
@@ -1143,6 +1149,8 @@ def telaFinal(ValorSom,troca):
                                         
                                         if clicou(posMouse, botaoTentarNovamente, posBotaoVoltar):
                                                 print("Voltando pro menu:")
+                                                vitoriaSom.stop()
+                                                derrotaSom.stop()
                                                 if escolhaSom == 1:
                                                         selectSom.play()
                                                         vitoriaSom.stop()
